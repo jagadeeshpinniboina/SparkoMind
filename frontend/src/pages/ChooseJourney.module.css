@@ -1,0 +1,637 @@
+/* ==========================================================================
+   SparkoMind Luxury Obsidian Demographic Portal (/select-zone)
+   Matching the Public Landing Page Obsidian Aesthetics
+   Strict 100vh Viewport Lock — Zero Scrolling / Zero Dragging
+   ========================================================================== */
+
+.pageWrapper,
+.journeyContainer,
+.portalPage {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden; /* Strict lock - eliminates vertical dragging/scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: #070A11;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 65%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 15% 70%, rgba(2, 132, 199, 0.06) 0%, transparent 50%);
+  color: #FFFFFF;
+  position: relative;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   1. MINIMALIST TOP BAR HEADER
+   -------------------------------------------------------------------------- */
+.topBar {
+  height: 68px;
+  flex-shrink: 0;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(7, 10, 17, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+/* Brand Lockup: Logo Image (44px) + "SparkoMind" (28px bold, tight 8px gap) */
+.brandLockup,
+.brandLink {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Strictly locked between 8px and 10px */
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.brandLogoImg {
+  height: 44px;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.45));
+  transition: transform 0.25s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.brandLockup:hover .brandLogoImg,
+.brandLink:hover .brandLogoImg {
+  transform: scale(1.04);
+}
+
+.brandTitle {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.brandSparko {
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+.brandMind {
+  color: #8B5CF6;
+  margin: 0;
+  padding: 0;
+  margin-left: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   2. HEADER RIGHT: 44px INTERACTIVE CIRCULAR AVATAR BADGE (NO EXTERNAL TEXT)
+   -------------------------------------------------------------------------- */
+.profileContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.avatarButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.35);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.avatarButton:hover {
+  transform: scale(1.06);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 22px rgba(139, 92, 246, 0.6);
+}
+
+/* Glassmorphic Profile Popover */
+.profilePopover {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 280px;
+  background: rgba(13, 20, 37, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(99, 102, 241, 0.15);
+  padding: 18px;
+  z-index: 100;
+  animation: popoverSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+@keyframes popoverSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popoverHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.popoverAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.popoverUserMeta {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.popoverFullName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popoverEmail {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popoverSection {
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.popoverRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.popoverLabel {
+  color: #64748B;
+  font-weight: 600;
+}
+
+.popoverStatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.greenDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.popoverFooter {
+  padding-top: 10px;
+}
+
+.popoverLogoutBtn {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #EF4444;
+  font-size: 0.86rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.popoverLogoutBtn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   3. HERO SECTION (TIGHTENED & PROTOTYPE ALIGNED)
+   -------------------------------------------------------------------------- */
+.mainContent {
+  flex: 1;
+  max-width: 1220px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.heroHeader {
+  text-align: center;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.heroTitle {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin: 0 0 6px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.05);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.heroSubtitle {
+  font-size: 15px;
+  color: #94A3B8;
+  font-weight: 400;
+  max-width: 620px;
+  line-height: 1.45;
+  margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. OBSIDIAN GLASSMORPHIC CARDS & SPOTLIGHT
+   -------------------------------------------------------------------------- */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  width: 100%;
+  max-width: 1180px;
+  flex-shrink: 0;
+}
+
+/* Spotlight Dimming: when hovering anywhere in grid, dim non-hovered cards */
+.cardsGrid:hover .portalCard:not(:hover) {
+  opacity: 0.6;
+  transform: scale(0.985);
+  filter: grayscale(15%);
+}
+
+.portalCard {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform, box-shadow;
+}
+
+/* Card 1: Kids Universe */
+.kidsCard {
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(245, 158, 11, 0.15);
+}
+
+.kidsCard:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 0 20px 44px rgba(245, 158, 11, 0.22), 0 0 25px rgba(245, 158, 11, 0.15);
+}
+
+/* Card 2: Adults Arena */
+.adultsCard {
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(56, 189, 248, 0.15);
+}
+
+.adultsCard:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 20px 44px rgba(56, 189, 248, 0.22), 0 0 25px rgba(56, 189, 248, 0.15);
+}
+
+/* Card 3: Senior Sanctuary */
+.seniorsCard {
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(16, 185, 129, 0.15);
+}
+
+.seniorsCard:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 20px 44px rgba(16, 185, 129, 0.22), 0 0 25px rgba(16, 185, 129, 0.15);
+}
+
+/* Visual Top Showcase Container - PURE 3D ILLUSTRATION ONLY (NO OVERLAYS) */
+.visualContainer {
+  height: 135px;
+  border-radius: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: transform 0.35s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.kidsVisual {
+  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.2) 0%, rgba(15, 23, 42, 0.4) 75%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.adultsVisual {
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.2) 0%, rgba(15, 23, 42, 0.4) 75%);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.seniorsVisual {
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.2) 0%, rgba(15, 23, 42, 0.4) 75%);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* 3D Character Floating Render - Locked / Non-draggable */
+.characterImage {
+  max-height: 120px;
+  max-width: 120px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.45s ease;
+  animation: gentleFloat 4s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes gentleFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+.kidsCard:hover .characterImage {
+  transform: scale(1.08) translateY(-4px);
+  filter: drop-shadow(0 12px 18px rgba(245, 158, 11, 0.55));
+}
+
+.adultsCard:hover .characterImage {
+  transform: scale(1.08) translateY(-4px);
+  filter: drop-shadow(0 12px 18px rgba(56, 189, 248, 0.55));
+}
+
+.seniorsCard:hover .characterImage {
+  transform: scale(1.08) translateY(-4px);
+  filter: drop-shadow(0 12px 18px rgba(16, 185, 129, 0.55));
+}
+
+/* Content Area */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.cardCohortBadge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.cardSubtext {
+  font-size: 12.5px;
+  color: #94A3B8;
+  line-height: 1.45;
+  margin: 4px 0 10px;
+  min-height: 36px;
+}
+
+/* Feature Checklists - Cognitive Skill Pillars */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
+.featureDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* Action Buttons */
+.cardButton {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  margin-top: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform, box-shadow;
+}
+
+.kidsButton {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+}
+
+.kidsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.55);
+}
+
+.adultsButton {
+  background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%);
+  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.35);
+}
+
+.adultsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.55);
+}
+
+.seniorsButton {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+}
+
+.seniorsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.55);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .pageWrapper,
+  .journeyContainer,
+  .portalPage {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    gap: 20px;
+  }
+
+  .topBar {
+    padding: 0 20px;
+  }
+
+  .heroTitle {
+    font-size: 28px;
+  }
+
+  .heroSubtitle {
+    font-size: 14px;
+  }
+
+  .mainContent {
+    padding: 24px 16px 40px;
+    overflow-y: visible;
+  }
+}

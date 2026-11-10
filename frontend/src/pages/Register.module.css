@@ -1,0 +1,942 @@
+/* ==========================================================================
+   SparkoMind Register Page — High-Contrast Inputs & Streamlined SaaS Layout
+   ========================================================================== */
+
+/* Dynamic Ambient Canvas with Subtle Aurora Glow */
+.registerCanvas {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  width: 100vw;
+  background: 
+    radial-gradient(circle at 15% 15%, rgba(94, 92, 230, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 50% 10%, rgba(251, 146, 60, 0.08) 0%, transparent 40%),
+    linear-gradient(135deg, #EEF2F9 0%, #E2E8F4 100%) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px !important;
+  overflow: hidden !important;
+  box-sizing: border-box;
+  position: relative;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Polished Interactive "Back to Home" Pill Button */
+.backHomeBtn {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(94, 92, 230, 0.08);
+  border: 1.5px solid rgba(94, 92, 230, 0.4);
+  border-radius: 9999px;
+  color: #5E5CE6;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(94, 92, 230, 0.1);
+  z-index: 20;
+}
+
+.backHomeBtn:hover {
+  background: #5E5CE6;
+  color: #FFFFFF !important;
+  transform: translateX(-3px);
+  box-shadow: 0 4px 14px rgba(94, 92, 230, 0.25);
+  text-decoration: none !important;
+}
+
+/* Master Card with Deep Indigo Ambient Elevation */
+.splitContainer {
+  width: 100%;
+  max-width: 1040px !important;
+  height: min(90vh, 660px) !important;
+  min-height: unset !important;
+  background: #FFFFFF !important;
+  border-radius: 28px !important;
+  box-shadow: 
+    0 28px 70px -15px rgba(94, 92, 230, 0.25),
+    0 8px 24px -4px rgba(15, 23, 42, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset !important;
+  border: 1.5px solid rgba(219, 234, 254, 0.8) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
+/* LEFT HALF: 100% Flush Poster */
+.leftShowcase {
+  flex: 0 0 48% !important;
+  width: 48% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: linear-gradient(180deg, #F0F5FF 0%, #E8F0FE 50%, #E0ECFE 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.showcasePosterImg {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  display: block !important;
+}
+
+/* RIGHT HALF: Soft Tinted Ice-Tone Form Panel */
+.rightFormPanel {
+  flex: 0 0 52% !important;
+  width: 52% !important;
+  height: 100% !important;
+  background: linear-gradient(155deg, #FFFFFF 0%, #F8FAFD 50%, #F1F5FE 100%) !important;
+  padding: 28px 44px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  box-sizing: border-box;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow-y: auto !important;
+}
+
+.formTitle {
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: #0F172A !important;
+  letter-spacing: -0.5px !important;
+  margin-bottom: 2px !important;
+}
+
+.formSubtitle {
+  font-size: 13.5px !important;
+  color: #64748B !important;
+  margin-bottom: 14px !important;
+  font-weight: 500;
+}
+
+/* Error Banner */
+.errorAlert {
+  background: #FEF2F2;
+  border: 1.5px solid #FCA5A5;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #B91C1C;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Form Styles */
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Side-by-Side First & Last Name Row */
+.namesRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.inputGroup,
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B !important;
+  pointer-events: none;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputGroup:focus-within .inputIcon,
+.inputWrapper:focus-within .inputIcon {
+  color: #5E5CE6 !important;
+}
+
+/* High-Contrast Form Inputs */
+.inputField {
+  width: 100%;
+  height: 48px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #0F172A !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 12px !important;
+  padding: 14px 16px 14px 44px !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.inputField:focus {
+  background: #FFFFFF !important;
+  border: 2px solid #5E5CE6 !important;
+  box-shadow: 0 0 0 4px rgba(94, 92, 230, 0.12) !important;
+  outline: none !important;
+}
+
+/* Prevent Chrome yellow/blue background on autofill */
+.inputField:-webkit-autofill,
+.inputField:-webkit-autofill:hover,
+.inputField:-webkit-autofill:focus,
+.inputField:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+  -webkit-text-fill-color: #0F172A !important;
+  caret-color: #0F172A !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.inputField::placeholder {
+  color: #64748B !important;
+  opacity: 1 !important;
+  font-weight: 400;
+  transition: opacity 0.15s ease;
+}
+
+/* Instantly vanish placeholder when input is clicked/focused */
+.inputField:focus::placeholder {
+  opacity: 0 !important;
+  color: transparent !important;
+  transition: opacity 0.15s ease;
+}
+
+.confirmInputWithIcons {
+  padding-right: 76px !important;
+}
+
+/* Inline Email Verification Elements */
+.emailInputWithVerify {
+  padding-right: 140px !important;
+}
+
+.verifyEmailInlineBtn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #5E5CE6;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(94, 92, 230, 0.25);
+}
+
+.verifyEmailInlineBtn:hover:not(:disabled) {
+  background: #4B48D6;
+  transform: translateY(-50%) translateY(-1px);
+  box-shadow: 0 4px 10px rgba(94, 92, 230, 0.35);
+}
+
+.verifyEmailInlineBtn:disabled {
+  background: #E2E8F0;
+  color: #94A3B8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.emailVerifiedBadgeGroup {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emailVerifiedBadge {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.changeEmailBtn {
+  background: none;
+  border: none;
+  color: #64748B;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.2s ease;
+}
+
+.changeEmailBtn:hover {
+  color: #0F172A;
+}
+
+/* Locked & Unlocked State Notices */
+.lockedNotice {
+  background: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 10px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #64748B;
+}
+
+.lockedNoticeIcon {
+  color: #94A3B8;
+  flex-shrink: 0;
+}
+
+.verifiedNotice {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 10px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #166534;
+  font-weight: 500;
+}
+
+.verifiedNoticeIcon {
+  color: #10B981;
+  flex-shrink: 0;
+}
+
+/* Disabled input state when locked */
+.inputField:disabled {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #94A3B8 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+/* Password Toggle & Action Icons */
+.passwordToggleBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748B !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.passwordToggleBtn:hover,
+.passwordToggleBtn:focus {
+  color: #5E5CE6 !important;
+}
+
+.actionIconsGroup {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.passwordToggleBtnRelative {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748B !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.passwordToggleBtnRelative:hover,
+.passwordToggleBtnRelative:focus {
+  color: #5E5CE6 !important;
+}
+
+.matchBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matchSuccessIcon {
+  color: #10B981 !important;
+}
+
+.matchMismatchIcon {
+  color: #F59E0B !important;
+}
+
+/* Dynamic Password Strength Indicator */
+.strengthContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: -2px 0 2px 0;
+  padding: 0 4px;
+}
+
+.strengthBars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  height: 4px;
+}
+
+.strengthBar {
+  height: 4px;
+  border-radius: 9999px;
+  background: #E2E8F0;
+  transition: background-color 0.25s ease;
+}
+
+.strengthLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+}
+
+.strengthHint {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.strengthLabel {
+  font-weight: 700;
+  text-transform: capitalize;
+  transition: color 0.25s ease;
+}
+
+/* Terms Checkbox */
+.termsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #5E5CE6;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.termsLabel {
+  cursor: pointer;
+  user-select: none;
+  color: #334155 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.termsLink {
+  color: #5E5CE6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.termsLink:hover {
+  text-decoration: underline;
+}
+
+/* Radiant Violet Primary Button (Solid Vibrant Pill) */
+.primarySubmitBtn {
+  width: 100%;
+  height: 48px !important;
+  background: linear-gradient(135deg, #5E5CE6 0%, #4F46E5 100%) !important;
+  color: #FFFFFF !important;
+  font-size: 15.5px !important;
+  font-weight: 700 !important;
+  border-radius: 9999px !important;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(94, 92, 230, 0.4) !important;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.primarySubmitBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%) !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 26px rgba(94, 92, 230, 0.48) !important;
+}
+
+.primarySubmitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Footer Link */
+.footerText,
+.formFooter {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 14px !important;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.loginLink {
+  color: #5E5CE6;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 5px;
+  transition: color 0.2s ease;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .registerCanvas {
+    height: auto !important;
+    max-height: unset !important;
+    overflow-y: auto !important;
+    padding: 60px 16px 24px 16px !important;
+  }
+  .splitContainer {
+    flex-direction: column !important;
+    max-width: 500px !important;
+    height: auto !important;
+    max-height: unset !important;
+  }
+  .leftShowcase {
+    width: 100% !important;
+    height: 240px !important;
+  }
+  .rightFormPanel {
+    width: 100% !important;
+    height: auto !important;
+    padding: 28px 24px !important;
+  }
+}
+
+/* ==========================================================================
+   Modals: Blurred Obsidian Overlay, Legal Viewports & 6-Digit OTP Verification
+   ========================================================================== */
+
+.modalOverlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(9, 14, 26, 0.78) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999 !important;
+  padding: 20px !important;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Terms & Privacy Glass Card */
+.modalCard {
+  background: #FFFFFF;
+  border-radius: 24px;
+  border: 1.5px solid rgba(219, 234, 254, 0.9);
+  box-shadow: 
+    0 25px 60px -12px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 26px;
+  border-bottom: 1.5px solid #F1F5F9;
+}
+
+.modalTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modalHeaderIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(94, 92, 230, 0.1);
+  color: #5E5CE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalTitle {
+  font-size: 19px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.modalCloseBtn {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.modalCloseBtn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.modalBody {
+  padding: 24px 26px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.modalSectionTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modalSectionText {
+  color: #475569;
+  font-size: 13.5px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.modalFooter {
+  padding: 16px 26px 20px 26px;
+  border-top: 1.5px solid #F1F5F9;
+  display: flex;
+  justify-content: flex-end;
+  background: #F8FAFC;
+}
+
+.modalAgreeBtn {
+  padding: 10px 28px;
+  background: linear-gradient(135deg, #5E5CE6 0%, #4F46E5 100%);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(94, 92, 230, 0.35);
+  transition: all 0.2s ease;
+}
+
+.modalAgreeBtn:hover {
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(94, 92, 230, 0.45);
+}
+
+/* 6-Digit OTP Verification Card */
+.otpCard {
+  background: #FFFFFF;
+  border-radius: 26px;
+  border: 1.5px solid rgba(219, 234, 254, 0.9);
+  box-shadow: 
+    0 25px 60px -12px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  width: 100%;
+  max-width: 460px;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.otpIconBadge {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(94, 92, 230, 0.16) 0%, rgba(79, 70, 229, 0.08) 100%);
+  color: #5E5CE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(94, 92, 230, 0.15);
+}
+
+.otpTitle {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.3px;
+}
+
+.otpSubtitle {
+  font-size: 13.5px;
+  color: #64748B;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.otpEmailHighlight {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.otpDemoBanner {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  color: #15803D;
+  font-weight: 600;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.otpInputsGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 14px;
+}
+
+.otpBox {
+  height: 54px;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.otpBox:focus {
+  border-color: #5E5CE6 !important;
+  box-shadow: 0 0 0 4px rgba(94, 92, 230, 0.15);
+  background: #FAF9FF;
+}
+
+.otpBoxFilled {
+  border-color: #94A3B8;
+  background: #F8FAFC;
+}
+
+.otpErrorAlert {
+  background: #FEF2F2;
+  border: 1.5px solid #FCA5A5;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #B91C1C;
+  font-size: 12.5px;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.otpResendRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #64748B;
+  margin-bottom: 20px;
+}
+
+.resendBtn {
+  background: none;
+  border: none;
+  color: #5E5CE6;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.resendBtn:hover:not(:disabled) {
+  color: #4338CA;
+}
+
+.resendBtn:disabled {
+  color: #94A3B8;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.otpActionsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.otpVerifyBtn {
+  width: 100%;
+  height: 46px;
+  background: linear-gradient(135deg, #5E5CE6 0%, #4F46E5 100%);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(94, 92, 230, 0.35);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.otpVerifyBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px rgba(94, 92, 230, 0.45);
+}
+
+.otpVerifyBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.otpCancelBtn {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px;
+  transition: color 0.15s ease;
+}
+
+.otpCancelBtn:hover {
+  color: #0F172A;
+}
