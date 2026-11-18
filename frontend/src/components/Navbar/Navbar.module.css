@@ -1,0 +1,345 @@
+.navbarHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(7, 10, 17, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.navbarContainer {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Container Lockup */
+.brandLockup,
+.brandLockup:hover,
+.brandLockup:focus,
+.brandLockup:active {
+  text-decoration: none !important;
+  outline: none;
+}
+
+.brandLockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: none !important;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brandLockup * {
+  text-decoration: none !important;
+}
+
+/* Hover Physics for Entire Brand Unit */
+.brandLockup:hover {
+  transform: scale(1.03);
+}
+
+/* Logo Image Float & Glow on Lockup Hover */
+.brandLogo,
+.brandLogoImg {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+}
+
+.brandLockup:hover .brandLogo,
+.brandLockup:hover .brandLogoImg {
+  transform: scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 0 16px rgba(129, 140, 248, 0.55));
+}
+
+/* Title Glow on Lockup Hover */
+.brandTitle,
+.brandTitleAccent {
+  text-decoration: none !important;
+  display: inline-block;
+}
+
+.brandTitle {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: text-shadow 0.3s ease;
+}
+
+.brandLockup:hover .brandTitle {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.brandAccent {
+  color: #8B5CF6;
+  text-decoration: none !important;
+  display: inline-block;
+}
+
+/* Middle Navigation Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  padding: 4px 6px;
+}
+
+.navItem {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navItem:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.navItemActive {
+  color: #FFFFFF !important;
+  background: rgba(94, 92, 230, 0.2) !important;
+  border: 1px solid rgba(94, 92, 230, 0.4);
+  box-shadow: 0 0 12px rgba(94, 92, 230, 0.25);
+}
+
+/* Actions */
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.guestActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loginBtn {
+  color: #CBD5E1;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.2s ease;
+}
+
+.loginBtn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.signUpBtn {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 9px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  transition: all 0.2s ease;
+}
+
+.signUpBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+
+/* Logged In */
+.loggedInCluster {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatarPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 4px 12px 4px 4px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  transition: border-color 0.2s ease;
+}
+
+.avatarPill:hover {
+  border-color: #5E5CE6;
+}
+
+.avatarImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarName {
+  color: #E2E8F0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dashboardBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #5E5CE6 0%, #4F46E5 100%);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(94, 92, 230, 0.3);
+  transition: all 0.2s ease;
+}
+
+.dashboardBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(94, 92, 230, 0.4);
+}
+
+/* Mobile */
+.hamburgerBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: #CBD5E1;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.mobileDrawer {
+  display: none;
+  flex-direction: column;
+  background: #0A0F1D;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 24px;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileNavItem {
+  background: none;
+  border: none;
+  color: #CBD5E1;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobileDrawerFooter {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobileDashboardBtn {
+  display: block;
+  text-align: center;
+  background: #5E5CE6;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mobileAuthRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mobileLoginBtn {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E2E8F0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.mobileSignUpBtn {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: #5E5CE6;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .navLinks {
+    display: none;
+  }
+  .hamburgerBtn {
+    display: block;
+  }
+  .guestActions, .loggedInCluster {
+    display: none;
+  }
+  .mobileDrawer {
+    display: flex;
+  }
+}

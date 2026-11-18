@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Sparkles, Sun, Moon, LogOut, LayoutDashboard, Compass, Trophy, User } from 'lucide-react';
+import logoTransparent from '../../assets/images/logo-transparent.png';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { getInitials } from '../../utils/avatar.js';
+import AvatarRenderer from './AvatarRenderer.jsx';
 import Button from './Button.jsx';
 
 export const Navbar = () => {
@@ -57,31 +59,16 @@ export const Navbar = () => {
       }}
     >
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
-        {/* Brand Logo with Brain + Spark Icon */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-          <div
-            style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '12px',
-              background: 'var(--brand-gradient)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#FFFFFF',
-              boxShadow: '0 4px 12px rgba(94, 92, 230, 0.3)'
-            }}
-          >
-            <Sparkles size={22} />
-          </div>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: '1.4rem', letterSpacing: '-0.02em', color: '#1E293B' }}>
-              Sparko<span style={{ color: 'var(--brand-primary)' }}>Mind</span>
-            </div>
-            <div style={{ fontSize: '0.68rem', color: '#64748B', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              Spark Your Mind
-            </div>
-          </div>
+        {/* Brand Logo & Title Lockup */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', cursor: 'pointer' }}>
+          <img
+            src={logoTransparent}
+            alt="SparkoMind Logo"
+            style={{ height: '44px', width: 'auto', objectFit: 'contain', display: 'block', margin: 0, padding: 0 }}
+          />
+          <span style={{ fontSize: '26px', fontWeight: 800, letterSpacing: '-0.5px', color: '#1E293B', display: 'flex', alignItems: 'center', margin: 0, padding: 0, lineHeight: 1 }}>
+            Sparko<span style={{ color: '#8B5CF6' }}>Mind</span>
+          </span>
         </Link>
 
         {/* Public Top Navigation Links with Polished Spacing */}
@@ -142,39 +129,12 @@ export const Navbar = () => {
           {hasUserSession ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <Link to="/select-zone" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }} title={currentUser?.name || 'Dashboard'}>
-                {currentUser?.avatar ? (
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser?.name || 'User Avatar'}
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      border: '2px solid var(--brand-primary)',
-                      boxShadow: '0 2px 8px rgba(94, 92, 230, 0.25)'
-                    }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--brand-primary)',
-                      color: '#FFFFFF',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                      fontSize: '13px',
-                      letterSpacing: '0.3px',
-                      boxShadow: '0 2px 8px rgba(94, 92, 230, 0.25)'
-                    }}
-                  >
-                    {getInitials(currentUser)}
-                  </div>
-                )}
+                <AvatarRenderer
+                  avatar={currentUser?.avatar}
+                  name={currentUser?.name}
+                  size="sm"
+                  fallbackInitials={true}
+                />
               </Link>
 
               <Link to={getDashboardRoute()} style={{ textDecoration: 'none' }}>

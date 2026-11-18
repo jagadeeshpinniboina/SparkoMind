@@ -1,18 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom';
-import { Compass, Sparkles, Zap, HeartHandshake, ArrowRightLeft } from 'lucide-react';
-import Navbar from '../components/common/Navbar.jsx';
-import Sidebar from '../components/common/Sidebar.jsx';
+import { Rocket, Zap, HeartHandshake, User, Settings, LogOut, Sun, Moon } from 'lucide-react';
+import Sidebar from '../components/Sidebar';
 import { useTheme } from '../context/ThemeContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import { getInitials, renderUserAvatar } from '../utils/avatar.js';
+import { useLiveUserStats } from '../utils/userStats.js';
+import styles from './DashboardLayout.module.css';
 
 export const DashboardLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { demographic, setDemographic } = useTheme();
+  const { demographic, setDemographic, theme, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
+  const { displayName, avatar, level } = useLiveUserStats();
 
-  const currentZone = location.pathname.split('/')[2] || localStorage.getItem('sparkomind_active_zone') || 'adults';
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  // Synchronize route with active zone and demographic state without blocking or looping
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+    if (profileDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [profileDropdownOpen]);
+
+  const handleLogout = async () => {
+    setProfileDropdownOpen(false);
+    await logout();
+    navigate('/');
+  };
+
+  const isPlayRoute = location.pathname.includes('/play');
+  const currentZone = location.pathname.split('/')[2] || localStorage.getItem('sparkomind_active_zone') || 'kids';
+
+  // Synchronize route with active zone and demographic state
   useEffect(() => {
     if (['kids', 'adults', 'seniors'].includes(currentZone)) {
       localStorage.setItem('sparkomind_active_zone', currentZone);
@@ -24,143 +54,154 @@ export const DashboardLayout = () => {
 
   const zoneMeta = {
     kids: {
-      name: 'Kids Zone Workspace',
-      age: 'Ages 6–12',
-      color: '#FF8C42',
-      bgLight: '#FFF2EB',
-      icon: Sparkles,
-      tagline: 'Curiosity & Playful Discovery'
+      badgeText: '🚀 Kids Universe Workspace (Ages 6–12)',
+      color: '#F59E0B',
+      bgColor: 'rgba(245, 158, 11, 0.12)',
+      borderColor: 'rgba(245, 158, 11, 0.3)',
+      icon: Rocket
     },
     adults: {
-      name: 'Adult Zone Workspace',
-      age: 'Ages 13–59',
-      color: '#0284C7',
-      bgLight: '#E0F2FE',
-      icon: Zap,
-      tagline: 'Velocity & Analytical Acuity'
+      badgeText: '⚡ Adults Neuro-Lab (Ages 18–55)',
+      color: '#06B6D4',
+      bgColor: 'rgba(6, 182, 212, 0.12)',
+      borderColor: 'rgba(6, 182, 212, 0.35)',
+      icon: Zap
     },
     seniors: {
-      name: 'Senior Zone Workspace',
-      age: 'Ages 60+',
-      color: '#10B981',
-      bgLight: '#D1FAE5',
-      icon: HeartHandshake,
-      tagline: 'Vitality & Mindful Rhythm'
+      badgeText: '🌿 Senior Sanctuary Workspace (Ages 60+)',
+      color: '#34D399',
+      bgColor: 'rgba(52, 211, 153, 0.12)',
+      borderColor: 'rgba(52, 211, 153, 0.3)',
+      icon: HeartHandshake
     }
   };
 
-  const currentZoneMeta = zoneMeta[demographic] || zoneMeta.adults;
-  const ZoneIcon = currentZoneMeta.icon;
+  const currentZoneMeta = zoneMeta[demographic] || zoneMeta.kids;
+  const userInitials = getInitials(user) || 'JP';
 
   return (
-    <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Navbar />
-      <div style={{ display: 'flex', flex: 1 }}>
-        <Sidebar />
-        <main
-          style={{
-            flex: 1,
-            padding: '1.75rem 2.25rem',
-            backgroundColor: 'var(--bg-app)',
-            overflowY: 'auto',
-            minHeight: 'calc(100vh - 72px)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.5rem'
-          }}
-        >
-          {/* Demographic Workspace Quick Indicator Bar */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              padding: '0.75rem 1.25rem',
-              borderRadius: '14px',
-              backgroundColor: 'var(--bg-surface)',
-              border: '1px solid var(--border-subtle)',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-              <div
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '10px',
-                  backgroundColor: currentZoneMeta.bgLight,
-                  color: currentZoneMeta.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <ZoneIcon size={20} />
-              </div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontWeight: 800, fontSize: '0.98rem', color: 'var(--text-primary)' }}>
-                    {currentZoneMeta.name}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      color: currentZoneMeta.color,
-                      backgroundColor: currentZoneMeta.bgLight,
-                      padding: '0.15rem 0.5rem',
-                      borderRadius: '9999px'
-                    }}
-                  >
-                    {currentZoneMeta.age}
-                  </span>
-                </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                  {currentZoneMeta.tagline}
-                </div>
-              </div>
+    <div className={`${styles.dashboardShell} ${isPlayRoute ? styles.dashboardShellPlay : ''}`}>
+      {/* 1. Left Sidebar: Fixed 260px Obsidian Dark Surface (Hidden during gameplay for true 100dvh single-screen arena) */}
+      {!isPlayRoute && (
+        <aside className={styles.sidebarWrapper}>
+          <Sidebar />
+        </aside>
+      )}
+
+      {/* 2. Main Viewport Canvas: Fluid, Obsidian Dark (#070A11) with Radial Ambient Glow */}
+      <main className={`${styles.mainCanvas} ${isPlayRoute ? styles.mainCanvasPlay : ''}`}>
+        {/* Top Workspace Bar (Hidden during gameplay for true 100dvh single-screen arena) */}
+        {!isPlayRoute && (
+          <header className={styles.topWorkspaceBar}>
+            <div
+              className={styles.workspacePill}
+              style={{
+                color: currentZoneMeta.color,
+                background: currentZoneMeta.bgColor,
+                borderColor: currentZoneMeta.borderColor
+              }}
+            >
+              <span>{currentZoneMeta.badgeText}</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <Link
-                to="/select-zone"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.45rem',
-                  padding: '0.45rem 0.95rem',
-                  borderRadius: '10px',
-                  fontSize: '0.84rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  backgroundColor: 'var(--bg-surface-subtle, #F1F5F9)',
-                  border: '1px solid var(--border-subtle)',
-                  textDecoration: 'none',
-                  transition: 'all var(--transition-fast)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = currentZoneMeta.color;
-                  e.currentTarget.style.color = currentZoneMeta.color;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                  e.currentTarget.style.color = 'var(--text-primary)';
-                }}
+            <div className={styles.workspaceActions}>
+              {/* Sleek Real-Time Light / Dark Theme Toggle with Smooth Rotation */}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className={`${styles.themeToggleBtn} ${theme === 'dark' ? styles.themeDark : styles.themeLight}`}
+                title={theme === 'dark' ? 'Switch to Light Mode ☀️' : 'Switch to Dark Mode 🌙'}
+                aria-label="Toggle Light/Dark Theme"
               >
-                <ArrowRightLeft size={14} />
-                <span>Switch Zone</span>
-              </Link>
-            </div>
-          </div>
+                <span className={styles.themeIconWrapper}>
+                  {theme === 'dark' ? (
+                    <Moon size={15} className={styles.themeIcon} />
+                  ) : (
+                    <Sun size={15} className={styles.themeIcon} />
+                  )}
+                </span>
+                <span className={styles.themeText}>{theme === 'dark' ? '🌙 Dark' : '☀️ Light'}</span>
+              </button>
 
-          {/* Active Workspace Viewport */}
-          <div style={{ flex: 1 }}>
-            <Outlet />
-          </div>
-        </main>
-      </div>
+              {/* Interactive Profile Circle (JP) with Glow Effect & Dropdown Popover */}
+              <div className={styles.profilePopoverWrapper} ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                  className={`${styles.userAvatarBtn} ${profileDropdownOpen ? styles.userAvatarBtnActive : ''}`}
+                  title={`Account Menu: ${displayName || user?.name || 'Pinniboina Jagadeesh'}`}
+                  aria-expanded={profileDropdownOpen}
+                >
+                  <span className={styles.userInitialsText}>{userInitials}</span>
+                  <span className={styles.avatarGlowRing} />
+                </button>
+
+                {/* Glassmorphic Profile Dropdown Popover Card */}
+                {profileDropdownOpen && (
+                  <div className={styles.profileDropdownCard}>
+                    <div className={styles.dropdownHeader}>
+                      <div className={styles.dropdownAvatarLarge}>
+                        {renderUserAvatar(avatar, displayName, { size: 'md' })}
+                      </div>
+                      <div className={styles.dropdownUserDetails}>
+                        <div className={styles.dropdownFullName}>
+                          {displayName || user?.name || 'Pinniboina Jagadeesh'}
+                        </div>
+                        <div className={styles.dropdownEmail}>
+                          {user?.email || 'pinniboinajagadeesh76@gmail.com'}
+                        </div>
+                        <div className={styles.dropdownZoneBadge}>
+                          {demographic === 'kids'
+                            ? `Kids Universe • Space Cadet Level ${level}`
+                            : demographic === 'seniors'
+                            ? `Senior Sanctuary • Vitality Level ${level}`
+                            : `Adults Arena • Neuro-Lab Level ${level}`}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.dropdownDivider} />
+
+                    <div className={styles.dropdownLinks}>
+                      <Link
+                        to="/profile"
+                        className={styles.dropdownItem}
+                        onClick={() => setProfileDropdownOpen(false)}
+                      >
+                        <User size={16} />
+                        <span>My Profile</span>
+                      </Link>
+
+                      <Link
+                        to="/settings"
+                        className={styles.dropdownItem}
+                        onClick={() => setProfileDropdownOpen(false)}
+                      >
+                        <Settings size={16} />
+                        <span>Settings</span>
+                      </Link>
+
+                      <button
+                        type="button"
+                        className={`${styles.dropdownItem} ${styles.dropdownLogoutBtn}`}
+                        onClick={handleLogout}
+                      >
+                        <LogOut size={16} />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </header>
+        )}
+
+        {/* Dynamic Content Viewport */}
+        <div className={`${styles.contentViewport} ${isPlayRoute ? styles.contentViewportPlay : ''}`}>
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 };

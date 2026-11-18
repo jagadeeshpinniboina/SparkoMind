@@ -1,0 +1,798 @@
+/* ==========================================================================
+   TimberUnbolt.module.css
+   Seniors Sanctuary • Wood & Brass Screw Unbolt Physics Puzzle
+   Strict Single-Screen 100dvh Layout • Warm Obsidian-Sage & Teakwood Theme
+   ========================================================================== */
+
+.arenaContainer {
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 24px 16px;
+  box-sizing: border-box;
+  background: #0B1210;
+  color: #F8FAFC;
+  font-family: inherit;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   1. COMPACT SINGLE-ROW TOP HUD
+   -------------------------------------------------------------------------- */
+.compactHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  background: #13201C;
+  border: 1px solid rgba(245, 158, 11, 0.22);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+  gap: 12px;
+  z-index: 10;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.seniorsExitBtn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  font-size: 0.86rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  color: #34D399 !important;
+  background: rgba(13, 25, 21, 0.8) !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.55) !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+.seniorsExitBtn:hover {
+  transform: translateX(-3px) !important;
+  background: rgba(13, 25, 21, 0.95) !important;
+  border-color: rgba(245, 158, 11, 0.7) !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.35), 0 0 25px rgba(245, 158, 11, 0.2) !important;
+  color: #A7F3D0 !important;
+  text-decoration: none !important;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #A7F3D0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.backLink:hover {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  transform: translateX(-2px);
+}
+
+.levelTabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.tabBtn:hover {
+  color: #F8FAFC;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tabBtnActive {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #1A1A1A !important;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
+}
+
+.tabBtnLocked {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  color: #475569 !important;
+}
+
+.tabBtnLocked:hover {
+  background: transparent !important;
+  color: #475569 !important;
+  transform: none !important;
+}
+
+.lockBadge {
+  font-size: 0.6rem;
+  margin-left: 2px;
+}
+
+.headerCenter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.levelTitleText {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FEF3C7;
+  letter-spacing: -0.01em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.levelBadge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #FBBF24;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.metricsGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  padding: 4px 12px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.82rem;
+}
+
+.metricLabel {
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.metricValEmerald {
+  color: #10B981;
+  font-weight: 800;
+}
+
+.metricValGold {
+  color: #F59E0B;
+  font-weight: 800;
+}
+
+.actionBtns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hintBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.25) 100%);
+  border: 1.5px solid #F59E0B;
+  color: #FBBF24;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+}
+
+.hintBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #1A1A1A;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
+  transform: translateY(-1px);
+}
+
+.hintBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.toolBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #CBD5E1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.toolBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.toolBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.iconBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94A3B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #F8FAFC;
+}
+
+/* --------------------------------------------------------------------------
+   2. STAGE & BOARD WRAPPER
+   -------------------------------------------------------------------------- */
+.stageWrapper {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  position: relative;
+}
+
+.boardFrame {
+  width: 100%;
+  max-width: 680px;
+  max-height: calc(100dvh - 165px);
+  aspect-ratio: 700 / 480;
+  background: #0E1A16;
+  border: 2px solid rgba(245, 158, 11, 0.38);
+  border-radius: 22px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.65), inset 0 2px 8px rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boardSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Sockets */
+.socketGroup {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.socketEmpty {
+  cursor: pointer;
+}
+
+.socketBlocked {
+  cursor: not-allowed;
+}
+
+.socketHighlight {
+  animation: socketGoldPulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes socketGoldPulse {
+  from {
+    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
+  }
+  to {
+    filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.95)) drop-shadow(0 0 8px rgba(254, 240, 138, 0.6));
+  }
+}
+
+/* Wooden Planks */
+.plankGroup {
+  transition: transform 0.65s cubic-bezier(0.34, 1.45, 0.64, 1), filter 0.25s ease;
+}
+
+.plankDangling {
+  transition: transform 0.65s cubic-bezier(0.34, 1.45, 0.64, 1) !important;
+}
+
+.plankDropping {
+  transition: transform 0.72s cubic-bezier(0.55, 0.05, 0.9, 0.25), opacity 0.4s ease 0.35s !important;
+  transform: translateY(480px) rotate(16deg) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.plankBlockedFlash {
+  animation: plankFlash 0.45s ease;
+}
+
+@keyframes plankFlash {
+  0%, 100% {
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+  }
+  50% {
+    filter: drop-shadow(0 0 24px #F59E0B) brightness(1.3);
+  }
+}
+
+/* Golden Brass Screws */
+.screwGroup {
+  cursor: pointer;
+  transition: transform 0.32s cubic-bezier(0.34, 1.45, 0.64, 1), filter 0.2s ease;
+  transform-origin: center;
+}
+
+.screwGroup:hover:not(.screwLifted) {
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
+}
+
+.screwLifted {
+  filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.95)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7));
+  animation: screwFloat 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes screwFloat {
+  from {
+    transform: translateY(-9px) scale(1.14);
+  }
+  to {
+    transform: translateY(-12px) scale(1.16);
+  }
+}
+
+/* Spotlight Ring for Hint */
+.hintRing {
+  animation: hintPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes hintPulse {
+  0% {
+    r: 22px;
+    opacity: 0.9;
+    stroke-width: 3.5px;
+  }
+  50% {
+    r: 29px;
+    opacity: 0.4;
+    stroke-width: 2px;
+  }
+  100% {
+    r: 22px;
+    opacity: 0.9;
+    stroke-width: 3.5px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. BOTTOM ACTION BAR & SENIORS GUIDANCE
+   -------------------------------------------------------------------------- */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: #13201C;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 12px;
+  flex-shrink: 0;
+  gap: 12px;
+  z-index: 10;
+}
+
+.instructionBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #CBD5E1;
+}
+
+.instructionIcon {
+  font-size: 1.1rem;
+}
+
+.instructionHighlight {
+  color: #FBBF24;
+  font-weight: 700;
+}
+
+.bottomButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.undoBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #E2E8F0;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.undoBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.undoBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.resetBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  color: #FBBF24;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.resetBtn:hover:not(:disabled) {
+  background: rgba(245, 158, 11, 0.2);
+  color: #FDE68A;
+}
+
+.resetBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   4. PRE-LEVEL MISSION BRIEFING MODAL
+   -------------------------------------------------------------------------- */
+.briefingOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 13, 11, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  animation: fadeIn 0.25s ease;
+}
+
+.briefingCard {
+  background: #121F1B;
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  border-radius: 22px;
+  max-width: 580px;
+  width: 100%;
+  padding: 24px 32px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(245, 158, 11, 0.15);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.briefingHeader {
+  margin-bottom: 12px;
+}
+
+.missionBadge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.briefingTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #FEF3C7;
+  margin: 0;
+}
+
+.briefingGoal {
+  font-size: 1.02rem;
+  color: #E2E8F0;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.diagramBox {
+  background: #0B1411;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.diagramSteps {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.diagramStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stepIcon {
+  font-size: 1.6rem;
+}
+
+.stepLabel {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FEF3C7;
+}
+
+.stepSub {
+  font-size: 0.7rem;
+  color: #94A3B8;
+}
+
+.diagramArrow {
+  color: #F59E0B;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.diagramCaption {
+  font-size: 0.74rem;
+  color: #94A3B8;
+  display: block;
+}
+
+.reassuranceText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #A7F3D0;
+  margin: 0 0 18px;
+  font-weight: 600;
+}
+
+.startButton {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #1A1A1A;
+  font-size: 1.05rem;
+  font-weight: 800;
+  border: none;
+  padding: 11px 32px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+}
+
+.startButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, #FBBF24 0%, #E68A00 100%);
+}
+
+/* --------------------------------------------------------------------------
+   5. PEACEFUL VICTORY MODAL
+   -------------------------------------------------------------------------- */
+.modalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 13, 11, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.victoryCard {
+  background: #121F1B;
+  border: 2px solid #F59E0B;
+  border-radius: 24px;
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 32px;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.7), 0 0 32px rgba(245, 158, 11, 0.25);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.victoryIcon {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.victoryTitle {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #FEF3C7;
+  margin: 0 0 6px;
+}
+
+.victorySubtitle {
+  font-size: 0.95rem;
+  color: #CBD5E1;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.vitalityPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34D399;
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 5px 16px;
+  border-radius: 9999px;
+  margin-bottom: 18px;
+}
+
+.victoryStats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.statCard {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.statLabel {
+  display: block;
+  font-size: 0.74rem;
+  color: #94A3B8;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.statValue {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #FEF3C7;
+}
+
+.victoryActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #F8FAFC;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.primaryVictoryBtn {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  border: none;
+  color: #1A1A1A;
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 9px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.primaryVictoryBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

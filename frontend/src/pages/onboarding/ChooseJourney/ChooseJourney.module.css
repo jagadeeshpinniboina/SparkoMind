@@ -47,21 +47,46 @@
 }
 
 /* Brand Lockup: Logo Image (44px) + "SparkoMind" (28px bold, tight 8px gap) */
+/* Container Lockup */
+.brandLockup,
+.brandLockup:hover,
+.brandLockup:focus,
+.brandLockup:active,
+.brandLink,
+.brandLink:hover,
+.brandLink:focus,
+.brandLink:active {
+  text-decoration: none !important;
+  outline: none;
+}
+
 .brandLockup,
 .brandLink {
   display: flex;
   align-items: center;
-  gap: 8px; /* Strictly locked between 8px and 10px */
-  text-decoration: none;
+  gap: 10px;
   cursor: pointer;
   border: none;
-  outline: none;
   margin: 0;
   padding: 0;
   user-select: none;
   -webkit-user-select: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+.brandLockup *,
+.brandLink * {
+  text-decoration: none !important;
+}
+
+/* Hover Physics for Entire Brand Unit */
+.brandLockup:hover,
+.brandLink:hover {
+  transform: scale(1.03);
+}
+
+/* Logo Image Float & Glow on Lockup Hover */
+.brandLogo,
 .brandLogoImg {
   height: 44px;
   width: auto;
@@ -69,21 +94,30 @@
   padding: 0;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.45));
-  transition: transform 0.25s ease;
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
 }
 
+.brandLockup:hover .brandLogo,
 .brandLockup:hover .brandLogoImg,
+.brandLink:hover .brandLogo,
 .brandLink:hover .brandLogoImg {
-  transform: scale(1.04);
+  transform: scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 0 16px rgba(129, 140, 248, 0.55));
+}
+
+/* Title Glow on Lockup Hover */
+.brandTitle,
+.brandTitleAccent {
+  text-decoration: none !important;
+  display: inline-block;
 }
 
 .brandTitle {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
   line-height: 1;
   margin: 0;
@@ -93,12 +127,20 @@
   align-items: center;
   user-select: none;
   -webkit-user-select: none;
+  transition: text-shadow 0.3s ease;
+}
+
+.brandLockup:hover .brandTitle,
+.brandLink:hover .brandTitle {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 .brandSparko {
   color: #FFFFFF;
   margin: 0;
   padding: 0;
+  text-decoration: none !important;
+  display: inline-block;
 }
 
 .brandMind {
@@ -106,6 +148,8 @@
   margin: 0;
   padding: 0;
   margin-left: 2px;
+  text-decoration: none !important;
+  display: inline-block;
 }
 
 /* --------------------------------------------------------------------------

@@ -1,0 +1,748 @@
+/* ==========================================================================
+   CIRCUITCONNECT — ENERGY WIRE ROTATION PUZZLE STYLES
+   Theme: Obsidian Cosmic Dark (#070A11) with Cyan / Amber / Electric Blue Accents
+   ========================================================================== */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 40px);
+  background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, rgba(7, 10, 17, 0.98) 60%), #070A11;
+  color: #FFFFFF;
+  padding: 1.25rem 1.75rem 2.5rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   1. TOP HUD BAR
+   ========================================================================== */
+.hudHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hudLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+  color: #00F0FF;
+  background: rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.3);
+  transform: translateX(-2px);
+}
+
+/* Unified Cosmic Exit Button */
+.kidsArenaExitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #F8FAFC;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none !important;
+  padding: 0.45rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid transparent;
+  background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), linear-gradient(135deg, #00F0FF, #8B5CF6);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.kidsArenaExitBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.kidsArenaExitBtn:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 6px 20px rgba(0, 240, 255, 0.3), 0 0 15px rgba(139, 92, 246, 0.3);
+  color: #FFFFFF;
+}
+
+.kidsArenaExitBtn:hover::after {
+  left: 140%;
+}
+
+.levelTabLocked {
+  opacity: 0.45;
+  cursor: not-allowed !important;
+  background: rgba(15, 23, 42, 0.4) !important;
+  color: #64748B !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.levelTabLocked:hover {
+  background: rgba(15, 23, 42, 0.4) !important;
+  color: #64748B !important;
+  transform: none !important;
+}
+
+.lockBadge {
+  font-size: 0.65rem;
+  margin-left: 2px;
+}
+
+.gameBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.brandIcon {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.7));
+}
+
+.brandTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #FFFFFF 40%, #00F0FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hudCenter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.levelBadge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(0, 240, 255, 0.15);
+  color: #38BDF8;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.levelLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94A3B8;
+  font-weight: 700;
+}
+
+.levelTabs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.25rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.levelTabBtn {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.levelTabBtn:hover:not(:disabled) {
+  color: #F1F5F9;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.levelTabActive {
+  color: #070A11 !important;
+  background: #00F0FF !important;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+}
+
+.hudRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.starsPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #F59E0B;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: 10px;
+}
+
+.utilityBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.utilityBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   2. MISSION BRIEF BANNER
+   ========================================================================== */
+.missionBanner {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 14px;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.missionDetails h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.missionDetails p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+.circuitStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.statusDisconnected {
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #94A3B8;
+}
+
+.statusSurging {
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  color: #00F0FF;
+  animation: pulseGlow 1.2s infinite;
+}
+
+.statusPowered {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #10B981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   3. MAIN WORKSPACE / CIRCUIT ARENA
+   ========================================================================== */
+.arenaLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Futuristic Reactor Frame */
+.reactorChamber {
+  position: relative;
+  background: rgba(11, 15, 25, 0.85);
+  backdrop-filter: blur(14px);
+  border: 2px solid rgba(0, 240, 255, 0.25);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 240, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chamberCornerTL,
+.chamberCornerTR,
+.chamberCornerBL,
+.chamberCornerBR {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #00F0FF;
+  pointer-events: none;
+}
+
+.chamberCornerTL { top: 8px; left: 8px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
+.chamberCornerTR { top: 8px; right: 8px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
+.chamberCornerBL { bottom: 8px; left: 8px; border-right: none; border-top: none; border-bottom-left-radius: 8px; }
+.chamberCornerBR { bottom: 8px; right: 8px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+
+/* Grid Container */
+.circuitGrid {
+  display: grid;
+  gap: 12px;
+  background: rgba(5, 8, 15, 0.7);
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Individual Interactive Tile */
+.circuitTile {
+  width: 96px;
+  height: 96px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid rgba(56, 189, 248, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.circuitTile:hover:not(.tileFixed) {
+  border-color: rgba(0, 240, 255, 0.6);
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+  transform: scale(1.03);
+}
+
+.circuitTile:active:not(.tileFixed) {
+  transform: scale(0.97);
+}
+
+.tileFixed {
+  cursor: default !important;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.tilePowered {
+  border-color: rgba(0, 240, 255, 0.45);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.2);
+}
+
+.tileSurged {
+  border-color: #00F0FF !important;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.5) !important;
+}
+
+/* SVG Wire Canvas */
+.wireCanvas {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Unpowered Wire Conduit */
+.wireConduit {
+  stroke: #334155;
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.wireCoreUnpowered {
+  stroke: #1E293B;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Powered Wire Conduit */
+.wireConduitPowered {
+  stroke: #0284C7;
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 0 6px #00F0FF);
+}
+
+.wireCorePowered {
+  stroke: #00F0FF;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  filter: drop-shadow(0 0 10px #00F0FF);
+  stroke-dasharray: 14 6;
+  animation: energyConduitFlow 0.8s linear infinite;
+}
+
+@keyframes energyConduitFlow {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Electric Spark Particles for Powered Targets */
+.electricSpark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FDE68A;
+  box-shadow: 0 0 8px #F59E0B, 0 0 16px #00F0FF;
+  pointer-events: none;
+  z-index: 8;
+  animation: sparkJitter 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes sparkJitter {
+  0% {
+    transform: scale(0.6) translate(0, 0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.4) translate(var(--spark-ox, 0px), var(--spark-oy, 0px));
+    opacity: 1;
+  }
+}
+
+.wireSurgeAnimation {
+  animation: electricPulse 0.8s ease-in-out infinite alternate;
+}
+
+/* Source Battery Sprite */
+.batteryIcon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 12px #10B981);
+  animation: pulseBattery 2s infinite ease-in-out;
+}
+
+/* Target Core / Bulb Sprite */
+.targetBulbOff {
+  font-size: 1.8rem;
+  filter: grayscale(0.8) opacity(0.5);
+  transition: all 0.3s ease;
+}
+
+.targetBulbOn {
+  font-size: 2.1rem;
+  filter: drop-shadow(0 0 20px #F59E0B) drop-shadow(0 0 35px #FBBF24);
+  animation: blazeTarget 1s ease-in-out infinite alternate;
+}
+
+/* Asteroid Obstacle */
+.asteroidObstacle {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #334155 0%, #0F172A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  opacity: 0.8;
+  border-radius: 12px;
+}
+
+/* ==========================================================================
+   4. METRICS / CONTROL BAR BELOW GRID
+   ========================================================================== */
+.controlsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 520px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.75rem 1.25rem;
+}
+
+.powerFlowMeter {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.flowLabel {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.targetsCountPill {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #00F0FF;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+}
+
+.movesCounter {
+  font-size: 0.85rem;
+  color: #CBD5E1;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   5. VICTORY MODAL OVERLAY
+   ========================================================================== */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 10, 17, 0.92);
+  backdrop-filter: blur(18px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.victoryModal {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(0, 240, 255, 0.45);
+  border-radius: 24px;
+  padding: 2.25rem;
+  box-shadow: 0 0 80px rgba(0, 240, 255, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.trophyCircle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 2px solid #00F0FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+  animation: bounceTrophy 1.5s ease-in-out infinite alternate;
+}
+
+.victoryTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+}
+
+.victorySubtitle {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+.starsRow {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1.75rem;
+  color: #F59E0B;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+}
+
+.rewardBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rewardItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rewardVal {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #00F0FF;
+}
+
+.rewardLbl {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  text-transform: uppercase;
+}
+
+.modalActions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.replayBtn {
+  flex: 1;
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #E2E8F0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.replayBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nextLevelBtn {
+  flex: 1.4;
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00F0FF 0%, #0284C7 100%);
+  border: none;
+  color: #070A11;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  transition: all 0.2s ease;
+}
+
+.nextLevelBtn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.2); }
+}
+
+@keyframes pulseBattery {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px #10B981); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 20px #34D399); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px #10B981); }
+}
+
+@keyframes blazeTarget {
+  0% { transform: scale(1); filter: drop-shadow(0 0 15px #F59E0B); }
+  100% { transform: scale(1.1); filter: drop-shadow(0 0 35px #FEF08A) drop-shadow(0 0 50px #F59E0B); }
+}
+
+@keyframes electricPulse {
+  0% { filter: drop-shadow(0 0 8px #00F0FF); opacity: 0.85; }
+  100% { filter: drop-shadow(0 0 20px #38BDF8) drop-shadow(0 0 30px #FFFFFF); opacity: 1; }
+}
+
+@keyframes bounceTrophy {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-6px) scale(1.05); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

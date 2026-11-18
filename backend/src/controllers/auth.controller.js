@@ -354,8 +354,30 @@ export const verifyOtp = async (req, res, next) => {
       });
     }
 
+    // Check user model for resetPasswordOtp
+    const user = await User.findOne({ email: normalizedEmail }).select('+resetPasswordOtp +resetPasswordExpires');
+    if (user && user.resetPasswordOtp) {
+      if (user.resetPasswordExpires && new Date(user.resetPasswordExpires).getTime() < Date.now()) {
+        return errorResponse(res, {
+          statusCode: 400,
+          message: 'Verification code has expired. Please request a new code.'
+        });
+      }
+      if (user.resetPasswordOtp === enteredOtp) {
+        return successResponse(res, {
+          statusCode: 200,
+          message: 'Verification code verified successfully.',
+          data: {
+            verified: true,
+            email: normalizedEmail,
+            maskedEmail: maskEmail(normalizedEmail)
+          }
+        });
+      }
+    }
+
     const stored = otpStore.get(normalizedEmail);
-    if (!stored) {
+    if (!stored && (!user || !user.resetPasswordOtp)) {
       return errorResponse(res, {
         statusCode: 400,
         message: 'No verification code found. Please request a new code.'
@@ -438,6 +460,13 @@ export const forgotPassword = async (req, res, next) => {
     user.resetPasswordOtp = otp;
     user.resetPasswordExpires = new Date(Date.now() + 10 * 60 * 1000);
     await user.save({ validateModifiedOnly: true });
+
+    // Also populate in-memory OTP cache
+    otpStore.set(normalizedEmail, {
+      otp,
+      expiresAt: Date.now() + 10 * 60 * 1000,
+      verified: false
+    });
 
     console.log(`[SparkoMind Auth] Generated Password Reset OTP for ${normalizedEmail}: ${otp}`);
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, useSearchParams, Link, Navigate } from 'react-router-dom';
 import { 
   Clock, Trophy, ArrowLeft, RotateCcw, Sparkles, CheckCircle2, 
   XCircle, ArrowRight, Lightbulb, Lock, Star, Award, LogOut 
@@ -11,14 +11,18 @@ import SequenceCodeEngine from '../../engines/SequenceCodeEngine/index.jsx';
 import CardMemoryEngine from '../../engines/CardMemoryEngine/index.jsx';
 import ChoiceLogicEngine from '../../engines/ChoiceLogicEngine/index.jsx';
 import SpatialPathEngine from '../../engines/SpatialPathEngine/index.jsx';
+import BotScript from '../dashboard/games/Kids/BotScript';
 import { challengeApi, gameApi } from '../../services/api.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
 
 export const PlayArena = () => {
-  const { gameSlug: paramGameSlug, slug, level = '1' } = useParams();
-  const gameSlug = paramGameSlug || slug;
-  const currentLevelNum = Number(level);
+  const { gameSlug: paramGameSlug, slug, gameId, level: paramLevel = '1' } = useParams();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const queryLevel = searchParams.get('level');
+  const gameSlug = gameId || paramGameSlug || slug;
+  const currentLevelNum = Number(queryLevel || paramLevel || 1);
   const navigate = useNavigate();
   const { user, progress, updateProfileProgress, isAuthenticated } = useAuth();
   const { demographic } = useTheme();
@@ -38,37 +42,184 @@ export const PlayArena = () => {
     ? (progress.completedGameLevels[gameData?._id] || progress.completedGameLevels[gameSlug] || 0)
     : 5;
 
-  // Fallback interactive layout
-  const fallbackChallenge = {
-    _id: 'mock-challenge-id',
-    level: currentLevelNum,
-    prompt: 'Observe the visual elements carefully and solve according to the rules.',
-    parTimeSeconds: 30,
-    baseXp: 100,
-    hints: ['Focus on landmarks and patterns.'],
-    layout: {
-      gridSize: 3,
-      previewTiles: [0, 4, 8],
-      displayDurationMs: 2500,
-      tokens: [
-        { id: 'red', label: 'Ruby Red', color: '#EF4444' },
-        { id: 'blue', label: 'Sky Blue', color: '#3B82F6' },
-        { id: 'yellow', label: 'Sun Yellow', color: '#EAB308' },
-        { id: 'green', label: 'Leaf Green', color: '#22C55E' }
-      ],
-      cards: [
-        { id: 'c1', symbol: 'Puppy' }, { id: 'c2', symbol: 'Kitten' },
-        { id: 'c3', symbol: 'Puppy' }, { id: 'c4', symbol: 'Kitten' }
-      ],
-      options: [
-        { id: 'opt-a', text: 'Option Alpha' },
-        { id: 'opt-b', text: 'Option Beta' }
-      ],
-      gridRows: 3,
-      gridCols: 3,
-      startNode: { row: 0, col: 0 },
-      endNode: { row: 2, col: 2 },
-      blockedNodes: [{ row: 1, col: 1 }]
+  const isKidsRoute = location.pathname.includes('/dashboard/kids/play') || demographic === 'kids';
+
+  const navigateToLevel = (lvl) => {
+    if (location.pathname.includes('/dashboard/kids/play')) {
+      navigate(`/dashboard/kids/play/${gameSlug}?level=${lvl}`);
+    } else {
+      navigate(`/games/${gameSlug}/play/${lvl}`);
+    }
+  };
+
+  const resolveGameMeta = (s) => {
+    const metaMap = {
+      'bot-script': { title: 'BotScript: Visual Block Coding & Loops', engine: 'SequenceCodeEngine', domain: 'Robotics & AI' },
+      'robo-rescue': { title: 'BotScript: Visual Block Coding & Loops', engine: 'SequenceCodeEngine', domain: 'Robotics & AI' },
+      'vision-craft': { title: 'VisionCraft: Train-The-Bot', engine: 'ChoiceLogicEngine', domain: 'Robotics & AI' },
+      'cyber-weave': { title: 'CyberWeave: The Logic Loom', engine: 'ChoiceLogicEngine', domain: 'Robotics & AI' },
+      'data-shield': { title: 'DataShield: Cyber Defender Academy', engine: 'ChoiceLogicEngine', domain: 'Cyber & Defense' },
+      'gravity-sling': { title: 'GravitySling: Orbital Mechanics Lab', engine: 'ChoiceLogicEngine', domain: 'Space & Physics' },
+      'memory-match': { title: 'Eco-Scanner: Bio-Mimicry AI Lens', engine: 'CardMemoryEngine', domain: 'Cyber & Memory' },
+      'pattern-planet': { title: 'Constellation Grid: Polar Coordinates', engine: 'GridMatrixEngine', domain: 'Logic & Math' },
+      'maze-explorer': { title: 'Rover Path: Energy-Constrained Dijkstra', engine: 'SpatialPathEngine', domain: 'Logic & Math' },
+      'math-quest': { title: 'Alchemica: Kinetic Physics & Balancing', engine: 'ChoiceLogicEngine', domain: 'Logic & Math' }
+    };
+    return metaMap[s] || { 
+      title: s ? s.replace(/-/g, ' ').toUpperCase() : 'GAME ARENA', 
+      engine: resolveEngineFromSlug(s), 
+      domain: 'Cognitive' 
+    };
+  };
+
+  const resolveEngineFromSlug = (s) => {
+    if (!s) return 'GridMatrixEngine';
+    if (s.includes('matrix') || s.includes('pattern') || s.includes('steps')) return 'GridMatrixEngine';
+    if (s.includes('sequence') || s.includes('code') || s.includes('robo') || s.includes('bot')) return 'SequenceCodeEngine';
+    if (s.includes('pair') || s.includes('match') || s.includes('garden') || s.includes('scanner')) return 'CardMemoryEngine';
+    if (s.includes('logic') || s.includes('quest') || s.includes('detective') || s.includes('math') || s.includes('weave') || s.includes('vision') || s.includes('craft') || s.includes('shield') || s.includes('biosphere') || s.includes('gravity') || s.includes('alchemica')) return 'ChoiceLogicEngine';
+    if (s.includes('maze') || s.includes('puzzle') || s.includes('wayfinder') || s.includes('rover')) return 'SpatialPathEngine';
+    return 'GridMatrixEngine';
+  };
+
+  const getFallbackChallenge = (s, lvl) => {
+    switch (s) {
+      case 'bot-script':
+      case 'robo-rescue':
+        return {
+          _id: 'mock-bot-script-' + lvl,
+          level: lvl,
+          prompt: `Level ${lvl} Block Coding: Program the rescue robot command sequence to bypass obstacles and reach the emergency switch!`,
+          parTimeSeconds: 30,
+          baseXp: 120,
+          hints: ['Use repetition loops and sensor checks to minimize redundant code lines.'],
+          layout: {
+            tokens: [
+              { id: 't1', label: 'Move Forward', color: '#8B5CF6' },
+              { id: 't2', label: 'Turn 90°', color: '#3B82F6' },
+              { id: 't3', label: 'Repeat 3x', color: '#F59E0B' },
+              { id: 't4', label: 'If Sensor -> Spray Foam', color: '#10B981' }
+            ]
+          }
+        };
+      case 'cyber-weave':
+        return {
+          _id: 'mock-cyber-weave-' + lvl,
+          level: lvl,
+          prompt: `Level ${lvl} Logic Circuit: Wire the gates so the automated hydroponic pump activates when Soil is Dry (A=False) AND Temperature is Warm (B=True).`,
+          parTimeSeconds: 30,
+          baseXp: 120,
+          hints: ['Use NOT on Moisture to invert False to True, then connect to AND with Temperature.'],
+          layout: {
+            options: [
+              { id: 'opt-1', text: 'NOT(Moisture) AND Temperature' },
+              { id: 'opt-2', text: 'Moisture OR NOT(Temperature)' },
+              { id: 'opt-3', text: 'Moisture AND Temperature' },
+              { id: 'opt-4', text: 'NOT(Moisture) XOR Temperature' }
+            ]
+          }
+        };
+      case 'vision-craft':
+        return {
+          _id: 'mock-vision-craft-' + lvl,
+          level: lvl,
+          prompt: `Level ${lvl} Model Training: The lunar rover vision model misclassified a white dog at night. How do you mitigate dataset bias?`,
+          parTimeSeconds: 35,
+          baseXp: 120,
+          hints: ['Machine learning classifiers require diverse lighting, angles, and varied coat patterns.'],
+          layout: {
+            options: [
+              { id: 'opt-1', text: 'Add diverse night-vision samples and varied coat patterns to the training set' },
+              { id: 'opt-2', text: 'Only train on sunny daylight pictures of brown dogs' },
+              { id: 'opt-3', text: 'Lower the model confidence threshold to 10%' },
+              { id: 'opt-4', text: 'Disable edge-detection filters and train solely on color hue' }
+            ]
+          }
+        };
+      case 'biosphere-9':
+        return {
+          _id: 'mock-biosphere-9-' + lvl,
+          level: lvl,
+          prompt: `Level ${lvl} Planetary Equilibrium: After herbivore beetles multiply, they overgraze canopy ferns and oxygen crashes. Which ecological introduction restores balance?`,
+          parTimeSeconds: 35,
+          baseXp: 120,
+          hints: ['Trophic cascades: Apex predators control herbivore overpopulation to allow plant biomass to recover.'],
+          layout: {
+            options: [
+              { id: 'opt-1', text: 'Introduce chameleon predator lizards to stabilize the beetle population' },
+              { id: 'opt-2', text: 'Double the beetle count to consume dead moss' },
+              { id: 'opt-3', text: 'Shut down all atmospheric water condensers' },
+              { id: 'opt-4', text: 'Clear the remaining canopy ferns from the bio-dome' }
+            ]
+          }
+        };
+      case 'data-shield':
+        return {
+          _id: 'mock-data-shield-' + lvl,
+          level: lvl,
+          prompt: `Level ${lvl} Digital Forensics: You receive an urgent chat: "Your account is locked! Click http://sparkomind-rewards.xyz/login for 10k gems!". What is the safest response?`,
+          parTimeSeconds: 25,
+          baseXp: 120,
+          hints: ['Look at the domain age, misspelled URL, insecure HTTP protocol, and artificial urgency.'],
+          layout: {
+            options: [
+              { id: 'opt-1', text: 'Quarantine the link as a phishing lure and report the spoofed domain' },
+              { id: 'opt-2', text: 'Click the link immediately to verify if the gems are authentic' },
+              { id: 'opt-3', text: 'Reply with your password to confirm identity' },
+              { id: 'opt-4', text: 'Forward the message to your entire contact list' }
+            ]
+          }
+        };
+      case 'gravity-sling':
+        return {
+          _id: 'mock-gravity-sling-' + lvl,
+          level: lvl,
+          prompt: `Level ${lvl} Orbital Trajectory: The deep-space probe must reach Jupiter without exhausting its finite rocket fuel budget. Which navigational maneuver achieves this?`,
+          parTimeSeconds: 30,
+          baseXp: 120,
+          hints: ['A gravitational assist (slingshot) around a lunar body transfers orbital momentum without burning fuel.'],
+          layout: {
+            options: [
+              { id: 'opt-1', text: 'Execute a lunar gravitational slingshot assist to accelerate for free' },
+              { id: 'opt-2', text: 'Burn 100% fuel in a straight vector through the asteroid field' },
+              { id: 'opt-3', text: 'Cut all thrusters and drift with zero escape velocity' },
+              { id: 'opt-4', text: 'Drop into a stationary low-Earth parking orbit' }
+            ]
+          }
+        };
+      default:
+        return {
+          _id: 'mock-challenge-id',
+          level: lvl,
+          prompt: 'Observe the visual elements carefully and solve according to the rules.',
+          parTimeSeconds: 30,
+          baseXp: 100,
+          hints: ['Focus on landmarks and patterns.'],
+          layout: {
+            gridSize: 3,
+            previewTiles: [0, 4, 8],
+            displayDurationMs: 2500,
+            tokens: [
+              { id: 'red', label: 'Ruby Red', color: '#EF4444' },
+              { id: 'blue', label: 'Sky Blue', color: '#3B82F6' },
+              { id: 'yellow', label: 'Sun Yellow', color: '#EAB308' },
+              { id: 'green', label: 'Leaf Green', color: '#22C55E' }
+            ],
+            cards: [
+              { id: 'c1', symbol: 'Star' }, { id: 'c2', symbol: 'Rocket' },
+              { id: 'c3', symbol: 'Star' }, { id: 'c4', symbol: 'Rocket' }
+            ],
+            options: [
+              { id: 'opt-a', text: 'Option Alpha' },
+              { id: 'opt-b', text: 'Option Beta' }
+            ],
+            gridRows: 3,
+            gridCols: 3,
+            startNode: { row: 0, col: 0 },
+            endNode: { row: 2, col: 2 },
+            blockedNodes: [{ row: 1, col: 1 }]
+          }
+        };
     }
   };
 
@@ -79,19 +230,21 @@ export const PlayArena = () => {
     setAttemptResult(null);
     setActiveHintIndex(null);
 
-    challengeApi.getForPlay(gameSlug, level, demographic)
+    const meta = resolveGameMeta(gameSlug);
+
+    challengeApi.getForPlay(gameSlug, currentLevelNum, demographic)
       .then((res) => {
         if (res.data?.challenge) {
           setChallengeData(res.data.challenge);
-          setGameData(res.data.game);
+          setGameData(res.data.game || { slug: gameSlug, title: meta.title, engine: meta.engine });
         } else {
-          setChallengeData(fallbackChallenge);
-          setGameData({ slug: gameSlug, title: gameSlug.replace(/-/g, ' ').toUpperCase(), engine: resolveEngineFromSlug(gameSlug) });
+          setChallengeData(getFallbackChallenge(gameSlug, currentLevelNum));
+          setGameData({ slug: gameSlug, title: meta.title, engine: meta.engine });
         }
       })
       .catch(() => {
-        setChallengeData(fallbackChallenge);
-        setGameData({ slug: gameSlug, title: gameSlug.replace(/-/g, ' ').toUpperCase(), engine: resolveEngineFromSlug(gameSlug) });
+        setChallengeData(getFallbackChallenge(gameSlug, currentLevelNum));
+        setGameData({ slug: gameSlug, title: meta.title, engine: meta.engine });
       })
       .finally(() => {
         setLoading(false);
@@ -102,29 +255,20 @@ export const PlayArena = () => {
       });
   };
 
-  const resolveEngineFromSlug = (slug) => {
-    if (slug?.includes('matrix') || slug?.includes('pattern') || slug?.includes('steps')) return 'GridMatrixEngine';
-    if (slug?.includes('sequence') || slug?.includes('code') || slug?.includes('robo')) return 'SequenceCodeEngine';
-    if (slug?.includes('pair') || slug?.includes('match') || slug?.includes('garden')) return 'CardMemoryEngine';
-    if (slug?.includes('logic') || slug?.includes('quest') || slug?.includes('detective') || slug?.includes('math')) return 'ChoiceLogicEngine';
-    if (slug?.includes('maze') || slug?.includes('puzzle') || slug?.includes('wayfinder')) return 'SpatialPathEngine';
-    return 'GridMatrixEngine';
-  };
-
   useEffect(() => {
     loadChallenge();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameSlug, level, demographic]);
+  }, [gameSlug, currentLevelNum, demographic]);
 
   const handleSubmitAttempt = async (submittedAnswer) => {
     if (timerRef.current) clearInterval(timerRef.current);
     setIsSubmitting(true);
 
     try {
-      if (challengeData?._id && challengeData._id !== 'mock-challenge-id' && isAuthenticated) {
+      if (challengeData?._id && !challengeData._id.startsWith('mock-') && isAuthenticated) {
         const res = await challengeApi.submitAttempt(challengeData._id, {
           submittedAnswer,
           timeTakenSeconds: timerSeconds
@@ -142,10 +286,10 @@ export const PlayArena = () => {
           isCorrect: true,
           accuracyPercentage: 100,
           feedback: 'Challenge Solved! Outstanding performance.',
-          xpEarned: 150,
-          rewardBreakdown: { base: 100, speedBonus: 50 },
-          level: 1,
-          totalXp: 150,
+          xpEarned: challengeData?.baseXp || 120,
+          rewardBreakdown: { base: 100, speedBonus: 20 },
+          level: currentLevelNum,
+          totalXp: (progress?.totalXp || 450) + 120,
           leveledUp: false
         });
       }
@@ -192,56 +336,81 @@ export const PlayArena = () => {
       case 'SpatialPathEngine':
         return <SpatialPathEngine layout={layout} onSubmitAttempt={handleSubmitAttempt} disabled={isSubmitting} />;
       default:
-        return <GridMatrixEngine layout={layout} onSubmitAttempt={handleSubmitAttempt} disabled={isSubmitting} />;
+        return <ChoiceLogicEngine layout={layout} onSubmitAttempt={handleSubmitAttempt} disabled={isSubmitting} />;
     }
   };
 
   const hasNextLevel = currentLevelNum < 5;
+  const gameMeta = resolveGameMeta(gameSlug);
+
+  // Dedicated Interactive Game Engines
+  if (gameSlug === 'bot-script' || gameSlug === 'robo-rescue') {
+    return (
+      <div data-theme="dark" style={{ height: '100%', width: '100%' }}>
+        <BotScript initialLevel={currentLevelNum} />
+      </div>
+    );
+  }
+
+  if (gameSlug === 'heritage-match' || gameSlug === 'heritagematch') {
+    return <Navigate to={`/dashboard/seniors/play/heritage-match?level=${currentLevelNum}`} replace />;
+  }
 
   return (
-    <div style={{ display: 'flex', gap: '1.5rem', height: 'calc(100vh - 110px)', overflow: 'hidden' }}>
-      {/* ---------------- LEFT SIDE: 1–20 LEVEL GRID (PART-3 SPEC) ---------------- */}
+    <div style={{ display: 'flex', gap: '1.5rem', height: 'calc(100vh - 120px)', overflow: 'hidden' }}>
+      {/* ---------------- LEFT SIDE: 1–20 LEVEL GRID ---------------- */}
       <div
         style={{
           width: '280px',
-          backgroundColor: '#FFFFFF',
-          borderRadius: '16px',
-          border: '1.5px solid var(--border-subtle)',
+          backgroundColor: '#090D1A',
+          borderRadius: '20px',
+          border: '1px solid rgba(245, 158, 11, 0.2)',
           padding: '1.5rem 1.25rem',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: 'var(--card-shadow)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
           overflowY: 'auto'
         }}
       >
         <div style={{ marginBottom: '1.25rem' }}>
           <Link
-            to="/games"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#64748B', fontSize: '0.85rem', marginBottom: '0.75rem', textDecoration: 'none' }}
+            to={isKidsRoute ? "/dashboard/kids" : "/games"}
+            style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '0.4rem', 
+              color: '#94A3B8', 
+              fontSize: '0.85rem', 
+              marginBottom: '0.75rem', 
+              textDecoration: 'none',
+              transition: 'color 0.2s ease'
+            }}
           >
             <ArrowLeft size={16} />
-            <span>Games Library</span>
+            <span>{isKidsRoute ? 'Active Quests' : 'Games Library'}</span>
           </Link>
-          <h2 style={{ fontSize: '1.2rem', color: '#1E293B', marginBottom: '0.2rem' }}>
-            {gameData?.title || 'Game Arena'}
+          
+          <h2 style={{ fontSize: '1.15rem', color: '#FFFFFF', fontWeight: 800, marginBottom: '0.35rem', lineHeight: 1.2 }}>
+            {gameMeta.title}
           </h2>
-          <span className="demographic-pill" style={{ fontSize: '0.72rem' }}>
-            Level Progression
-          </span>
+
+          <div style={{ display: 'inline-flex', padding: '2px 8px', borderRadius: '9999px', background: 'rgba(245, 158, 11, 0.12)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#F59E0B', fontSize: '0.7rem', fontWeight: 700 }}>
+            {gameMeta.domain}
+          </div>
         </div>
 
         {/* Legend */}
-        <div style={{ display: 'flex', gap: '0.75rem', fontSize: '0.75rem', marginBottom: '1.25rem', color: '#64748B' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+        <div style={{ display: 'flex', gap: '0.75rem', fontSize: '0.75rem', marginBottom: '1.25rem', color: '#94A3B8' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
             <span>Done</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#5E5CE6' }} />
-            <span>Current</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+            <span>Active</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#CBD5E1' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#475569' }} />
             <span>Locked</span>
           </div>
         </div>
@@ -257,83 +426,91 @@ export const PlayArena = () => {
         >
           {Array.from({ length: 20 }).map((_, idx) => {
             const lvl = idx + 1;
-            const isFinished = isAuthenticated && lvl <= highestCompleted;
+            const isFinished = isAuthenticated && lvl < currentLevelNum;
             const isCurrent = lvl === currentLevelNum;
             const isAvailable = lvl <= 5;
-            const isUnlocked = isAvailable && (!isAuthenticated || lvl <= highestCompleted + 1);
+            const isUnlocked = isAvailable;
 
             return (
               <button
                 key={lvl}
                 disabled={!isUnlocked}
-                onClick={() => navigate(`/games/${gameSlug}/play/${lvl}`)}
+                onClick={() => navigateToLevel(lvl)}
                 style={{
                   aspectRatio: '1 / 1',
                   borderRadius: '12px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontSize: '0.9rem',
-                  border: isCurrent ? '2px solid #5E5CE6' : '1px solid var(--border-subtle)',
-                  backgroundColor: isFinished
-                    ? '#10B981'
-                    : isCurrent
-                    ? '#5E5CE6'
+                  border: isCurrent 
+                    ? '2px solid #F59E0B' 
+                    : isFinished 
+                    ? '1px solid rgba(16, 185, 129, 0.4)' 
+                    : '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: isCurrent
+                    ? 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)'
+                    : isFinished
+                    ? 'rgba(16, 185, 129, 0.2)'
                     : isUnlocked
-                    ? '#F8FAFD'
-                    : '#F1F5F9',
-                  color: isFinished || isCurrent ? '#FFFFFF' : isUnlocked ? '#1E293B' : '#94A3B8',
-                  boxShadow: isCurrent ? '0 0 12px rgba(94, 92, 230, 0.4)' : 'none',
+                    ? 'rgba(255, 255, 255, 0.05)'
+                    : 'rgba(255, 255, 255, 0.02)',
+                  color: isCurrent ? '#070A11' : isFinished ? '#10B981' : isUnlocked ? '#FFFFFF' : '#475569',
+                  boxShadow: isCurrent ? '0 0 14px rgba(245, 158, 11, 0.5)' : 'none',
                   cursor: isUnlocked ? 'pointer' : 'not-allowed',
-                  transition: 'all var(--transition-fast)'
+                  transition: 'all 0.2s ease'
                 }}
               >
-                {!isUnlocked ? <Lock size={13} /> : lvl}
+                {!isUnlocked ? <Lock size={12} /> : lvl}
               </button>
             );
           })}
         </div>
 
-        <div style={{ fontSize: '0.78rem', color: '#94A3B8', marginTop: '1.25rem', textAlign: 'center' }}>
-          Levels 1–5 Available Now • Levels 6–20 Coming Soon
+        <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '1.25rem', textAlign: 'center' }}>
+          Levels 1–5 Available Now • Levels 6–20 in Orbit
         </div>
       </div>
 
-      {/* ---------------- RIGHT SIDE: ACTIVE GAMEPLAY CANVAS (PART-3 SPEC) ---------------- */}
+      {/* ---------------- RIGHT SIDE: ACTIVE GAMEPLAY CANVAS ---------------- */}
       <div
         style={{
           flex: 1,
-          backgroundColor: '#FFFFFF',
-          borderRadius: '16px',
-          border: '1.5px solid var(--border-subtle)',
+          backgroundColor: 'rgba(15, 23, 42, 0.85)',
+          backdropFilter: 'blur(16px)',
+          borderRadius: '20px',
+          border: '1px solid rgba(245, 158, 11, 0.2)',
           padding: '2rem',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: 'var(--card-shadow)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
           overflowY: 'auto'
         }}
       >
-        {/* Canvas Header (PART-3 SPEC: Timer, Score pill, Reset, Hint, Exit) */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1.25rem', borderBottom: '1.5px solid var(--border-subtle)', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+        {/* Canvas Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1.25rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-              <span className="demographic-pill">Level {currentLevelNum}</span>
+              <span style={{ padding: '4px 10px', borderRadius: '9999px', background: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#F59E0B', fontWeight: 800, fontSize: '0.8rem' }}>
+                Level {currentLevelNum}
+              </span>
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.35rem',
-                  padding: '0.35rem 0.85rem',
-                  borderRadius: 'var(--radius-full)',
-                  backgroundColor: '#FFF2EB',
-                  color: '#FF8C42',
+                  padding: '4px 10px',
+                  borderRadius: '9999px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  color: '#FDE68A',
                   fontWeight: 800,
-                  fontSize: '0.85rem'
+                  fontSize: '0.8rem'
                 }}
               >
                 <Trophy size={14} />
-                <span>+{challengeData?.baseXp || 100} XP</span>
+                <span>+{challengeData?.baseXp || 120} XP</span>
               </div>
             </div>
           </div>
@@ -346,14 +523,15 @@ export const PlayArena = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.45rem 1rem',
-                borderRadius: 'var(--radius-full)',
-                backgroundColor: 'var(--bg-app)',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
                 fontWeight: 700,
-                fontSize: '0.95rem',
-                border: '1px solid var(--border-subtle)'
+                fontSize: '0.92rem',
+                color: '#FFFFFF',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
               }}
             >
-              <Clock size={16} color="var(--brand-primary)" />
+              <Clock size={16} color="#F59E0B" />
               <span>{formatTimer(timerSeconds)}</span>
             </div>
 
@@ -366,16 +544,16 @@ export const PlayArena = () => {
                 gap: '0.4rem',
                 padding: '0.45rem 0.9rem',
                 borderRadius: '10px',
-                border: '1.5px solid #FDE68A',
-                backgroundColor: '#FEF3C7',
-                color: '#D97706',
+                border: '1px solid rgba(245, 158, 11, 0.4)',
+                backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                color: '#F59E0B',
                 fontWeight: 700,
                 fontSize: '0.85rem',
                 cursor: 'pointer'
               }}
             >
               <Lightbulb size={16} />
-              <span>Get Hint</span>
+              <span>Hint</span>
             </button>
 
             {/* Reset Button */}
@@ -387,9 +565,9 @@ export const PlayArena = () => {
                 gap: '0.4rem',
                 padding: '0.45rem 0.9rem',
                 borderRadius: '10px',
-                border: '1.5px solid var(--border-subtle)',
-                backgroundColor: '#FFFFFF',
-                color: '#64748B',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                color: '#94A3B8',
                 fontWeight: 600,
                 fontSize: '0.85rem',
                 cursor: 'pointer'
@@ -400,7 +578,7 @@ export const PlayArena = () => {
             </button>
 
             {/* Exit Button */}
-            <Link to="/games">
+            <Link to={isKidsRoute ? "/dashboard/kids" : "/games"}>
               <button
                 style={{
                   display: 'flex',
@@ -408,9 +586,9 @@ export const PlayArena = () => {
                   gap: '0.4rem',
                   padding: '0.45rem 0.9rem',
                   borderRadius: '10px',
-                  border: '1.5px solid #FEE2E2',
-                  backgroundColor: '#FEF2F2',
-                  color: '#EF4444',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                  color: '#F87171',
                   fontWeight: 600,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
@@ -429,9 +607,9 @@ export const PlayArena = () => {
             style={{
               padding: '0.75rem 1.25rem',
               borderRadius: '12px',
-              backgroundColor: '#FEF3C7',
-              border: '1px solid #FDE68A',
-              color: '#92400E',
+              backgroundColor: 'rgba(245, 158, 11, 0.15)',
+              border: '1px solid rgba(245, 158, 11, 0.4)',
+              color: '#FDE68A',
               fontSize: '0.9rem',
               display: 'flex',
               alignItems: 'center',
@@ -446,11 +624,11 @@ export const PlayArena = () => {
 
         {/* Challenge Prompt */}
         <div style={{ marginBottom: '1.75rem', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '1.5rem', color: '#1E293B', marginBottom: '0.4rem' }}>
+          <h1 style={{ fontSize: '1.45rem', color: '#FFFFFF', fontWeight: 800, marginBottom: '0.4rem' }}>
             {challengeData?.prompt}
           </h1>
-          <p style={{ color: '#64748B', fontSize: '0.88rem' }}>
-            Par Time: {challengeData?.parTimeSeconds || 30}s • Target XP: {challengeData?.baseXp || 100} XP
+          <p style={{ color: '#94A3B8', fontSize: '0.88rem' }}>
+            Par Time: {challengeData?.parTimeSeconds || 30}s • Target Reward: +{challengeData?.baseXp || 120} XP
           </p>
         </div>
 
@@ -460,14 +638,14 @@ export const PlayArena = () => {
         </div>
       </div>
 
-      {/* ---------------- LEVEL COMPLETE RESULT MODAL (PART-3 SPEC) ---------------- */}
+      {/* ---------------- LEVEL COMPLETE RESULT MODAL ---------------- */}
       <Modal
         isOpen={resultModalOpen}
         onClose={() => setResultModalOpen(false)}
         title=""
       >
         <div style={{ textAlign: 'center', padding: '1rem 0' }}>
-          {/* Golden Trophy Graphic */}
+          {/* Trophy Graphic */}
           <div
             style={{
               width: '80px',
@@ -476,26 +654,26 @@ export const PlayArena = () => {
               background: attemptResult?.isCorrect
                 ? 'linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%)'
                 : 'linear-gradient(135deg, #FECACA 0%, #EF4444 100%)',
-              color: '#FFFFFF',
+              color: '#070A11',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               marginBottom: '1rem',
-              boxShadow: '0 8px 24px rgba(245, 158, 11, 0.35)'
+              boxShadow: '0 8px 24px rgba(245, 158, 11, 0.4)'
             }}
           >
             {attemptResult?.isCorrect ? <Trophy size={42} /> : <XCircle size={42} />}
           </div>
 
-          <h2 style={{ fontSize: '1.9rem', color: '#1E293B', marginBottom: '0.35rem' }}>
+          <h2 style={{ fontSize: '1.9rem', color: '#FFFFFF', fontWeight: 800, marginBottom: '0.35rem' }}>
             {attemptResult?.isCorrect ? 'Level Complete!' : 'Challenge Incomplete'}
           </h2>
 
-          <p style={{ fontSize: '1rem', color: '#64748B', marginBottom: '1.25rem' }}>
+          <p style={{ fontSize: '1rem', color: '#94A3B8', marginBottom: '1.25rem' }}>
             {attemptResult?.feedback}
           </p>
 
-          {/* Stars Rating (PART-3 SPEC) */}
+          {/* Stars Rating */}
           {attemptResult?.isCorrect && (
             <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', marginBottom: '1.5rem', color: '#F59E0B' }}>
               <Star size={28} fill="currentColor" />
@@ -504,7 +682,7 @@ export const PlayArena = () => {
             </div>
           )}
 
-          {/* Stats Breakdown Pill (PART-3 SPEC: Time, Moves, Score) */}
+          {/* Stats Breakdown Pill */}
           <div
             style={{
               display: 'grid',
@@ -512,30 +690,30 @@ export const PlayArena = () => {
               gap: '0.75rem',
               padding: '1.25rem',
               borderRadius: '16px',
-              backgroundColor: '#F8FAFD',
-              border: '1.5px solid var(--border-subtle)',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               marginBottom: '1.75rem'
             }}
           >
             <div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B', textTransform: 'uppercase' }}>Time Taken</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1E293B' }}>{formatTimer(timerSeconds)}</div>
+              <div style={{ fontSize: '0.75rem', color: '#94A3B8', textTransform: 'uppercase' }}>Time Taken</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF' }}>{formatTimer(timerSeconds)}</div>
             </div>
             <div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B', textTransform: 'uppercase' }}>Accuracy</div>
+              <div style={{ fontSize: '0.75rem', color: '#94A3B8', textTransform: 'uppercase' }}>Accuracy</div>
               <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#10B981' }}>
                 {attemptResult?.accuracyPercentage ?? 100}%
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B', textTransform: 'uppercase' }}>XP Awarded</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--brand-primary)' }}>
+              <div style={{ fontSize: '0.75rem', color: '#94A3B8', textTransform: 'uppercase' }}>XP Awarded</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#F59E0B' }}>
                 +{attemptResult?.xpEarned || 0}
               </div>
             </div>
           </div>
 
-          {/* Action Buttons (Next Level / Play Again) */}
+          {/* Action Buttons */}
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
             <Button variant="secondary" onClick={loadChallenge} icon={<RotateCcw size={16} />} style={{ flex: 1 }}>
               Play Again
@@ -546,7 +724,7 @@ export const PlayArena = () => {
                 className="btn-brand"
                 onClick={() => {
                   setResultModalOpen(false);
-                  navigate(`/games/${gameSlug}/play/${currentLevelNum + 1}`);
+                  navigateToLevel(currentLevelNum + 1);
                 }}
                 icon={<ArrowRight size={18} />}
                 style={{ flex: 2 }}
@@ -556,9 +734,9 @@ export const PlayArena = () => {
             )}
 
             {(!attemptResult?.isCorrect || !hasNextLevel) && (
-              <Link to="/games" style={{ flex: 1 }}>
+              <Link to={isKidsRoute ? "/dashboard/kids" : "/games"} style={{ flex: 1 }}>
                 <Button className="btn-brand" style={{ width: '100%' }}>
-                  Games Library
+                  {isKidsRoute ? 'Active Quests' : 'Games Library'}
                 </Button>
               </Link>
             )}

@@ -42,18 +42,42 @@
   box-sizing: border-box;
 }
 
-/* Brand Logo & Title Alignment */
+/* Brand Logo & Title Alignment (Unified Hover Physics) */
+.brandLockup,
+.brandLockup:hover,
+.brandLockup:focus,
+.brandLockup:active,
+.navBrand,
+.navBrand:hover,
+.navBrand:focus,
+.navBrand:active {
+  text-decoration: none !important;
+  outline: none;
+}
+
+.brandLockup,
 .navBrand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  text-decoration: none !important;
+  gap: 10px;
+  cursor: pointer;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.navBrand:hover,
+.brandLockup *,
+.navBrand * {
+  text-decoration: none !important;
+}
+
+.brandLockup:hover,
+.navBrand:hover {
+  transform: scale(1.03);
+}
+
 .navBrand:focus,
 .navBrand:active {
   text-decoration: none !important;
@@ -66,19 +90,50 @@
   content: none !important;
 }
 
+.brandLogo,
 .brandLogoImg {
-  height: 40px;
-  width: 40px;
+  height: 44px;
+  width: auto;
   object-fit: contain;
+  display: block;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+}
+
+.brandLockup:hover .brandLogo,
+.brandLockup:hover .brandLogoImg,
+.navBrand:hover .brandLogo,
+.navBrand:hover .brandLogoImg {
+  transform: scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 0 16px rgba(129, 140, 248, 0.55));
+}
+
+.brandTitle,
+.brandTitleAccent,
+.brandSparko,
+.brandMind,
+.brandAccent {
+  text-decoration: none !important;
+  display: inline-block;
 }
 
 .brandTitle {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
-  letter-spacing: -0.4px;
-  display: flex;
+  letter-spacing: -0.5px;
   align-items: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  color: #FFFFFF;
   text-decoration: none !important;
+  transition: text-shadow 0.3s ease;
+}
+
+.brandLockup:hover .brandTitle,
+.navBrand:hover .brandTitle {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 .brandSparko {
@@ -87,7 +142,10 @@
 
 .brandMind {
   color: #8B5CF6;
-  margin-left: 2px;
+}
+
+.brandAccent {
+  color: #8B5CF6;
 }
 
 /* Middle Navigation Links with Polished Proportional Spacing */
@@ -452,20 +510,23 @@
   width: 100%;
 }
 
+.zonePreviewCard,
 .demoCard {
   border-radius: 26px;
   padding: 18px 24px;
   display: flex;
   align-items: center;
   gap: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
   text-decoration: none !important;
-  cursor: pointer;
+  cursor: default;
+  user-select: none;
 }
 
+.zonePreviewCard:hover,
 .demoCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55) !important;
 }
 
 /* Card 1: Warm Golden Amber / Pastel Peach */
@@ -499,6 +560,12 @@
   display: block;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   border: 2px solid rgba(255, 255, 255, 0.85);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.zonePreviewCard:hover .cardAvatar,
+.demoCard:hover .cardAvatar {
+  transform: scale(1.06) translateY(-2px);
 }
 
 .cardContent {

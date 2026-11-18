@@ -1,113 +1,176 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { 
-  Gamepad2, Search, Filter, Play, Layers, Grid, 
-  Compass, Binary, Brain, X, CheckCircle2, Clock, Award, Star 
-} from 'lucide-react';
-import Card from '../../components/common/Card.jsx';
-import Button from '../../components/common/Button.jsx';
-import Modal from '../../components/common/Modal.jsx';
-import { gameApi } from '../../services/api.js';
+import React, { useState, useMemo } from 'react';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { Search, Play, CheckCircle2, Cpu, Sparkles } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext.jsx';
+import { KIDS_GAMES } from '../../data/kidsGamesData.js';
+import { ADULTS_GAMES } from '../../data/adultsGamesData.js';
+import { SENIORS_GAMES } from '../../data/seniorsGamesData.js';
+import styles from './GamesLibrary.module.css';
 
 export const GamesLibrary = () => {
-  const [games, setGames] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const { demographic } = useTheme();
+
+  // Strict dynamic detection of active zone
+  const storedZone = typeof window !== 'undefined' ? localStorage.getItem('sparkomind_active_zone') : null;
+  const isSeniors =
+    location.pathname.includes('/seniors') ||
+    searchParams.get('zone') === 'seniors' ||
+    (storedZone === 'seniors' && !location.pathname.includes('/kids') && !location.pathname.includes('/adults')) ||
+    (demographic === 'seniors' && !location.pathname.includes('/kids') && !location.pathname.includes('/adults'));
+
+  const isAdults = 
+    !isSeniors && (
+      location.pathname.includes('/adults') || 
+      searchParams.get('zone') === 'adults' || 
+      (storedZone === 'adults' && !location.pathname.includes('/kids')) ||
+      (demographic === 'adults' && !location.pathname.includes('/kids'))
+    );
+
+  const activeZone = isSeniors ? 'seniors' : isAdults ? 'adults' : 'kids';
+
+  // Strict isolated game dataset per demographic zone
+  const rawGames = isSeniors ? SENIORS_GAMES : isAdults ? ADULTS_GAMES : KIDS_GAMES;
+
+  // Filter Categories
+  const categories = useMemo(() => {
+    if (isSeniors) {
+      return ['All', 'Visual Memory', 'Verbal Fluency', 'Auditory Memory', 'Spatial Harmony'];
+    }
+    if (isAdults) {
+      return ['All', 'Working Memory', 'Executive Focus', 'Systems Logic', 'Deductive Reasoning'];
+    }
+    return ['All', 'Robotics & AI', 'Logic & Engineering', 'Space & Physics', 'Creativity & Science'];
+  }, [isSeniors, isAdults]);
+
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [selectedGame, setSelectedGame] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    setLoading(true);
-    gameApi.getAll()
-      .then((res) => {
-        if (res.data?.games) {
-          setGames(res.data.games);
+  // Filter games based on Category & Search Query
+  const filteredGames = useMemo(() => {
+    return rawGames.filter((g) => {
+      // 1. Category filter
+      if (selectedCategory !== 'All' && g.category !== selectedCategory) {
+        return false;
+      }
+
+      // 2. Search query filter
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const title = (g.title || '').toLowerCase();
+        const tagline = (g.tagline || '').toLowerCase();
+        const skillsStr = (g.skills || []).join(' ').toLowerCase();
+        if (!title.includes(q) && !tagline.includes(q) && !skillsStr.includes(q)) {
+          return false;
         }
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, []);
+      }
 
-  const categories = ['All', 'Memory', 'Logic', 'Mathematics', 'Coding', 'Spatial', 'Sequence'];
+      return true;
+    });
+  }, [rawGames, selectedCategory, searchQuery]);
 
-  const filteredGames = games.filter((g) => {
-    const matchesCat = selectedCategory === 'All' || g.category?.toLowerCase() === selectedCategory.toLowerCase();
-    const matchesSearch = g.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          g.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCat && matchesSearch;
-  });
-
-  const getEngineIcon = (engine) => {
-    switch (engine) {
-      case 'GridMatrixEngine': return <Grid size={24} />;
-      case 'SequenceCodeEngine': return <Binary size={24} />;
-      case 'CardMemoryEngine': return <Layers size={24} />;
-      case 'ChoiceLogicEngine': return <Brain size={24} />;
-      case 'SpatialPathEngine': return <Compass size={24} />;
-      default: return <Brain size={24} />;
-    }
-  };
-
-  const handleOpenDetail = (game) => {
-    setSelectedGame(game);
-    setModalOpen(true);
-  };
-
-  const handleStartGame = () => {
-    if (selectedGame) {
-      setModalOpen(false);
-      navigate(`/games/${selectedGame.slug}/play/1`);
-    }
-  };
+  const accentColor = isSeniors ? '#10B981' : isAdults ? '#06B6D4' : '#F59E0B';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className={styles.container}>
       {/* Top Banner */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <div>
-          <h1 style={{ fontSize: '2rem', color: '#1E293B', marginBottom: '0.25rem' }}>Games Library</h1>
-          <p style={{ color: '#64748B', fontSize: '0.95rem' }}>
-            Choose from 15 scientifically engineered cognitive training games.
+      <div className={styles.topBanner}>
+        <div className={styles.headerText}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem' }}>
+            {isSeniors ? (
+              <Sparkles size={22} style={{ color: '#10B981' }} />
+            ) : isAdults ? (
+              <Cpu size={22} style={{ color: '#06B6D4' }} />
+            ) : (
+              <Sparkles size={22} style={{ color: '#F59E0B' }} />
+            )}
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                padding: '0.25rem 0.75rem',
+                borderRadius: '8px',
+                background: isSeniors ? 'rgba(16, 185, 129, 0.12)' : isAdults ? 'rgba(6, 182, 212, 0.12)' : 'rgba(245, 158, 11, 0.12)',
+                color: accentColor,
+                border: `1px solid ${isSeniors ? 'rgba(16, 185, 129, 0.35)' : isAdults ? 'rgba(6, 182, 212, 0.35)' : 'rgba(245, 158, 11, 0.35)'}`
+              }}
+            >
+              {isSeniors
+                ? 'Seniors Sanctuary • Mindful Vitality Core'
+                : isAdults
+                ? 'Adults Neuro-Lab • Cognitive Conditioning'
+                : 'Kids Universe • STEM & AI Workspace'}
+            </span>
+          </div>
+
+          <h1 className={styles.title}>
+            {isSeniors
+              ? 'Seniors Mindful Vitality Activities'
+              : isAdults
+              ? 'Adults Cognitive Conditioning Engines'
+              : 'Kids Cognitive Research Labs'}
+          </h1>
+          <p className={styles.subtitle}>
+            {isSeniors
+              ? 'Tranquil cognitive exercises designed for relaxed memory recall, verbal sharpness, and sensory harmony with zero stress.'
+              : isAdults
+              ? 'High-velocity mental conditioning drills targeting working memory, executive focus, systems logic, and deductive reasoning.'
+              : 'Explore the 4 Next-Gen STEM, AI, and systems reasoning labs with 5 progressive mission levels each.'}
           </p>
         </div>
 
-        {/* Search Bar */}
-        <div style={{ position: 'relative', width: '300px' }}>
+        {/* Glassmorphic Search Bar */}
+        <div className={styles.searchWrapper}>
+          <Search size={18} className={styles.searchIcon} />
           <input
             type="text"
-            placeholder="Search games, skills..."
+            placeholder={
+              isSeniors
+                ? 'Search mindful activities, memory, verbal...'
+                : isAdults
+                ? 'Search drills, skills, domains...'
+                : 'Search labs, algorithms, skills...'
+            }
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="form-input"
-            style={{ paddingLeft: '2.5rem', borderRadius: 'var(--radius-full)' }}
+            className={styles.searchInput}
+            style={isSeniors ? { borderColor: 'rgba(16, 185, 129, 0.3)' } : isAdults ? { borderColor: 'rgba(6, 182, 212, 0.25)' } : {}}
           />
-          <Search size={18} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
         </div>
       </div>
 
-      {/* Horizontal Category Filter Pills (PART-3 SPEC) */}
-      <div style={{ display: 'flex', gap: '0.65rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
+      {/* Category Filter Pills */}
+      <div className={styles.filterPills}>
         {categories.map((cat) => {
           const isSelected = selectedCategory === cat;
           return (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              style={{
-                padding: '0.55rem 1.25rem',
-                borderRadius: 'var(--radius-full)',
-                fontSize: '0.9rem',
-                fontWeight: isSelected ? 700 : 500,
-                backgroundColor: isSelected ? 'var(--brand-primary)' : '#FFFFFF',
-                color: isSelected ? '#FFFFFF' : '#64748B',
-                border: isSelected ? '1.5px solid var(--brand-primary)' : '1.5px solid var(--border-subtle)',
-                cursor: 'pointer',
-                transition: 'all var(--transition-fast)',
-                whiteSpace: 'nowrap',
-                boxShadow: isSelected ? '0 4px 12px rgba(94, 92, 230, 0.25)' : 'none'
-              }}
+              className={`${styles.filterPill} ${isSelected ? styles.filterPillActive : ''}`}
+              style={
+                isSelected
+                  ? isSeniors
+                    ? {
+                        background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(16, 185, 129, 0.2) 100%)',
+                        color: '#FDE68A',
+                        borderColor: '#F59E0B',
+                        boxShadow: '0 0 16px rgba(245, 158, 11, 0.3)'
+                      }
+                    : isAdults
+                    ? {
+                        background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(16, 185, 129, 0.2) 100%)',
+                        color: '#06B6D4',
+                        borderColor: 'rgba(6, 182, 212, 0.7)',
+                        boxShadow: '0 0 16px rgba(6, 182, 212, 0.3)'
+                      }
+                    : {}
+                  : {}
+              }
             >
               {cat}
             </button>
@@ -115,153 +178,158 @@ export const GamesLibrary = () => {
         })}
       </div>
 
-      {/* Games Grid (PART-3 SPEC) */}
-      {loading ? (
-        <div style={{ textAlign: 'center', padding: '3rem 0', color: '#64748B' }}>Loading games library...</div>
+      {/* Games Grid: Obsidian Dark Glass Cards */}
+      {filteredGames.length === 0 ? (
+        <div className={styles.emptyState}>
+          No cognitive engines found matching "{searchQuery}". Try selecting another category!
+        </div>
       ) : (
-        <div className="grid grid-cols-3 md:grid-cols-1 gap-6">
-          {filteredGames.map((game) => {
-            const zone = game.demographics?.[0] || 'adults';
-            const zoneColors = {
-              kids: '#FF8C42',
-              adults: '#0284C7',
-              seniors: '#10B981'
-            };
-            const zoneColor = zoneColors[zone] || '#5E5CE6';
-
-            return (
-              <Card
-                key={game.slug}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  borderRadius: '16px',
-                  padding: '1.5rem',
-                  cursor: 'pointer'
-                }}
-                onClick={() => handleOpenDetail(game)}
-              >
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.1rem' }}>
-                    <div
-                      style={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '12px',
-                        backgroundColor: 'var(--color-primary-light)',
-                        color: 'var(--brand-primary)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      {getEngineIcon(game.engine)}
-                    </div>
-
+        <div className={styles.gamesGrid}>
+          {filteredGames.map((game) => (
+            <div
+              key={game.id}
+              className={styles.gameCard}
+              style={
+                isSeniors
+                  ? {
+                      borderColor: 'rgba(16, 185, 129, 0.25)',
+                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)'
+                    }
+                  : isAdults
+                  ? {
+                      borderColor: 'rgba(6, 182, 212, 0.22)',
+                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)'
+                    }
+                  : {}
+              }
+            >
+              <div>
+                <div className={styles.cardHeader}>
+                  <span
+                    className={styles.emojiIcon}
+                    role="img"
+                    aria-label={game.title}
+                    style={
+                      isSeniors
+                        ? {
+                            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(19, 32, 28, 0.8) 75%)',
+                            border: '1px solid rgba(16, 185, 129, 0.4)',
+                            borderRadius: '14px',
+                            padding: '6px',
+                            boxShadow: '0 0 16px rgba(16, 185, 129, 0.2)'
+                          }
+                        : isAdults
+                        ? {
+                            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(15, 23, 42, 0.8) 75%)',
+                            border: '1px solid rgba(6, 182, 212, 0.35)',
+                            borderRadius: '14px',
+                            padding: '6px',
+                            boxShadow: '0 0 16px rgba(6, 182, 212, 0.2)'
+                          }
+                        : {}
+                    }
+                  >
+                    {game.icon}
+                  </span>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
                     <span
-                      style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        padding: '0.2rem 0.65rem',
-                        borderRadius: 'var(--radius-full)',
-                        backgroundColor: `${zoneColor}18`,
-                        color: zoneColor,
-                        textTransform: 'capitalize'
-                      }}
+                      className={styles.zoneBadge}
+                      style={
+                        isSeniors
+                          ? {
+                              background: 'rgba(16, 185, 129, 0.15)',
+                              color: '#10B981',
+                              border: '1px solid rgba(16, 185, 129, 0.35)'
+                            }
+                          : isAdults
+                          ? {
+                              background: 'rgba(6, 182, 212, 0.12)',
+                              color: '#06B6D4',
+                              border: '1px solid rgba(6, 182, 212, 0.35)'
+                            }
+                          : {}
+                      }
                     >
-                      {zone} Zone
+                      {game.category}
+                    </span>
+                    <span style={{ fontSize: '0.68rem', color: '#94A3B8', fontWeight: 700 }}>
+                      {game.targetAge}
                     </span>
                   </div>
-
-                  <h3 style={{ fontSize: '1.25rem', color: '#1E293B', marginBottom: '0.35rem' }}>
-                    {game.title}
-                  </h3>
-                  <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5, marginBottom: '1.25rem' }}>
-                    {game.description}
-                  </p>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#64748B' }}>
-                    🎯 5 Playable Levels
-                  </span>
+                <h3 className={styles.gameTitle}>{game.title}</h3>
+                <p className={styles.gameDesc}>{game.tagline}</p>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/games/${game.slug}/play/1`);
-                    }}
-                    style={{
-                      padding: '0.45rem 1.1rem',
-                      borderRadius: '10px',
-                      backgroundColor: 'var(--brand-primary)',
-                      color: '#FFFFFF',
-                      fontWeight: 700,
-                      fontSize: '0.88rem',
-                      border: 'none',
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      boxShadow: '0 3px 10px rgba(94, 92, 230, 0.25)'
-                    }}
-                  >
-                    <Play size={14} />
-                    <span>Play</span>
-                  </button>
+                {/* Skills Row */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '0.75rem' }}>
+                  {game.skills.map((skill, sIdx) => (
+                    <span
+                      key={sIdx}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        background: isSeniors
+                          ? 'rgba(16, 185, 129, 0.12)'
+                          : isAdults
+                          ? 'rgba(16, 185, 129, 0.1)'
+                          : 'rgba(56, 189, 248, 0.1)',
+                        color: isSeniors ? '#A7F3D0' : isAdults ? '#34D399' : '#38BDF8',
+                        border: `1px solid ${isSeniors ? 'rgba(16, 185, 129, 0.3)' : isAdults ? 'rgba(16, 185, 129, 0.25)' : 'rgba(56, 189, 248, 0.25)'}`
+                      }}
+                    >
+                      <CheckCircle2 size={11} />
+                      <span>{skill}</span>
+                    </span>
+                  ))}
                 </div>
-              </Card>
-            );
-          })}
+              </div>
+
+              <div className={styles.cardFooter}>
+                <span className={styles.levelsTag}>
+                  ⭐ 5 Progressive Levels
+                </span>
+
+                <button
+                  onClick={() =>
+                    navigate(
+                      isSeniors
+                        ? `/dashboard/seniors/play/${game.id}?level=1`
+                        : isAdults
+                        ? `/dashboard/adults/play/${game.id}?level=1`
+                        : `/dashboard/kids/play/${game.id}?level=1`
+                    )
+                  }
+                  className={styles.playBtn}
+                  style={
+                    isSeniors
+                      ? {
+                          background: 'linear-gradient(135deg, #F59E0B 0%, #10B981 100%)',
+                          color: '#0B1210',
+                          boxShadow: '0 0 16px rgba(245, 158, 11, 0.35)'
+                        }
+                      : isAdults
+                      ? {
+                          background: 'linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)',
+                          color: '#04141E',
+                          boxShadow: '0 0 16px rgba(6, 182, 212, 0.4)'
+                        }
+                      : {}
+                  }
+                >
+                  <Play size={14} fill="currentColor" />
+                  <span>{isSeniors ? 'Start Activity ▷' : 'Launch ▷'}</span>
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       )}
-
-      {/* Selected Game Detail Modal (PART-3 SPEC) */}
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={selectedGame?.title || 'Game Details'}
-      >
-        {selectedGame && (
-          <div>
-            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
-              <span className="demographic-pill" style={{ textTransform: 'capitalize' }}>
-                {selectedGame.category}
-              </span>
-              <span style={{ fontSize: '0.8rem', padding: '0.3rem 0.7rem', borderRadius: 'var(--radius-full)', backgroundColor: '#F1F5F9', color: '#475569', fontWeight: 600 }}>
-                {selectedGame.engine}
-              </span>
-            </div>
-
-            <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              {selectedGame.description}
-            </p>
-
-            <div style={{ backgroundColor: '#F8FAFD', borderRadius: '12px', padding: '1.25rem', marginBottom: '1.5rem', border: '1px solid var(--border-subtle)' }}>
-              <div style={{ fontWeight: 700, fontSize: '0.92rem', marginBottom: '0.75rem', color: '#1E293B' }}>
-                Key Cognitive Features:
-              </div>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.88rem', color: '#64748B' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><CheckCircle2 size={16} color="var(--brand-primary)" /> 5 Progressive Difficulty Levels (Easy to Hard)</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><CheckCircle2 size={16} color="var(--brand-primary)" /> Zero-Trust Server-Side Answer Validation</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><CheckCircle2 size={16} color="var(--brand-primary)" /> Latency, Accuracy, and Streak multipliers</li>
-              </ul>
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.75rem' }}>
-              <Link to={`/games/${selectedGame.slug}`} style={{ flex: 1 }}>
-                <Button variant="secondary" style={{ width: '100%' }}>
-                  View All Levels
-                </Button>
-              </Link>
-              <Button className="btn-brand" onClick={handleStartGame} style={{ flex: 2 }} icon={<Play size={16} />}>
-                Start Game (Level 1) →
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
     </div>
   );
 };

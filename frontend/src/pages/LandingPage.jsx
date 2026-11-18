@@ -3,9 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 import { getInitials } from '../utils/avatar.js';
+import AvatarRenderer from '../components/common/AvatarRenderer.jsx';
 import styles from './LandingPage.module.css';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 
 // Official High-Res Raster Images
+import logoTransparent from '../assets/images/logo-transparent.png';
 import logoImg from '../assets/images/logo.png';
 import heroSceneImg from '../assets/images/hero-scene.png';
 import kidAvatarImg from '../assets/images/kid-avatar.png';
@@ -137,17 +141,16 @@ export const LandingPage = () => {
         {/* Brand Logo */}
         <Link
           to="/"
-          className={styles.navBrand}
+          className={`${styles.navBrand} ${styles.brandLockup}`}
           onClick={(e) => {
             e.preventDefault();
             scrollToTop();
           }}
         >
-          <img src={logoImg} alt="SparkoMind Logo" className={styles.brandLogoImg} />
-          <div className={styles.brandTitle}>
-            <span className={styles.brandSparko}>Sparko</span>
-            <span className={styles.brandMind}>Mind</span>
-          </div>
+          <img src={logoTransparent} alt="SparkoMind Logo" className={`${styles.brandLogo} ${styles.brandLogoImg}`} />
+          <span className={styles.brandTitle}>
+            Sparko<span className={styles.brandAccent}>Mind</span>
+          </span>
         </Link>
 
         {/* Dynamic Nav Links with Single Moving Underline */}
@@ -172,17 +175,12 @@ export const LandingPage = () => {
           {hasUserSession ? (
             <div className={styles.loggedInActions}>
               <Link to="/select-zone" className={styles.avatarLink} title={currentUser?.name || "Dashboard"}>
-                {currentUser?.avatar ? (
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser?.name || "User Avatar"}
-                    className={styles.navAvatarImg}
-                  />
-                ) : (
-                  <div className={styles.navAvatarFallback}>
-                    {getInitials(currentUser)}
-                  </div>
-                )}
+                <AvatarRenderer
+                  avatar={currentUser?.avatar}
+                  name={currentUser?.name}
+                  size="sm"
+                  fallbackInitials={true}
+                />
               </Link>
               <Link to="/select-zone" className={styles.dashboardNavBtn}>
                 Dashboard
@@ -251,13 +249,7 @@ export const LandingPage = () => {
           aria-label="Demographic Category Selection"
         >
           {/* Card 1: For Kids */}
-          <div
-            className={`${styles.demoCard} ${styles.kidsCard}`}
-            onClick={() => handleProtectedAction('/onboarding/category')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleProtectedAction('/onboarding/category')}
-          >
+          <div className={`${styles.zonePreviewCard} ${styles.demoCard} ${styles.kidsCard}`}>
             <img src={kidAvatarImg} alt="For Kids" className={styles.cardAvatar} />
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>For Kids</h3>
@@ -266,13 +258,7 @@ export const LandingPage = () => {
           </div>
 
           {/* Card 2: For Adults */}
-          <div
-            className={`${styles.demoCard} ${styles.adultsCard}`}
-            onClick={() => handleProtectedAction('/onboarding/category')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleProtectedAction('/onboarding/category')}
-          >
+          <div className={`${styles.zonePreviewCard} ${styles.demoCard} ${styles.adultsCard}`}>
             <img src={adultAvatarImg} alt="For Adults" className={styles.cardAvatar} />
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>For Adults</h3>
@@ -283,13 +269,7 @@ export const LandingPage = () => {
           </div>
 
           {/* Card 3: For Seniors */}
-          <div
-            className={`${styles.demoCard} ${styles.seniorsCard}`}
-            onClick={() => handleProtectedAction('/onboarding/category')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleProtectedAction('/onboarding/category')}
-          >
+          <div className={`${styles.zonePreviewCard} ${styles.demoCard} ${styles.seniorsCard}`}>
             <img src={seniorAvatarImg} alt="For Seniors" className={styles.cardAvatar} />
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>For Seniors</h3>
@@ -611,73 +591,16 @@ export const LandingPage = () => {
       </section>
 
       {/* ====================================================================
-          7. IN-PAGE GUEST PREVIEW: CONTACT (#contact)
+          7. IN-PAGE SPLIT INTERACTIVE CONTACT SECTION (#contact)
           ==================================================================== */}
-      <section id="contact" className={styles.contentSection}>
-        <div className={styles.sectionHeader}>
-          <div className={styles.sectionBadge}>📬 Get In Touch</div>
-          <h2 className={styles.sectionTitle}>We're Here to Help</h2>
-          <p className={styles.sectionSubtitle}>
-            Have questions about age zones, curriculum, or school partnerships? Our team is available 24/7.
-          </p>
-        </div>
-
-        <div className={styles.contactGrid}>
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconCircle}>✉️</div>
-            <h3 className={styles.contactTitle}>Direct Support</h3>
-            <p className={styles.contactDetail}>support@sparkomind.com</p>
-            <p className={styles.contactSub}>Average response time: &lt; 2 hours</p>
-          </div>
-
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconCircle}>💬</div>
-            <h3 className={styles.contactTitle}>Community Discord</h3>
-            <p className={styles.contactDetail}>discord.gg/sparkomind</p>
-            <p className={styles.contactSub}>Connect with other learners & players</p>
-          </div>
-
-          <div className={styles.contactCard}>
-            <div className={styles.contactIconCircle}>🏢</div>
-            <h3 className={styles.contactTitle}>Headquarters</h3>
-            <p className={styles.contactDetail}>San Francisco, California</p>
-            <p className={styles.contactSub}>SparkoMind NeuroTech Labs</p>
-          </div>
-        </div>
-      </section>
+      <Contact />
 
       {/* ====================================================================
-          8. LANDING FOOTER
+          8. COMPREHENSIVE 4-COLUMN ENTERPRISE FOOTER
           ==================================================================== */}
-      <footer className={styles.landingFooter}>
-        <div className={styles.footerInner}>
-          <div className={styles.footerBrand}>
-            <img src={logoImg} alt="SparkoMind" className={styles.footerLogo} />
-            <span style={{ color: '#FFFFFF', fontWeight: 700 }}>SparkoMind</span>
-            <span>© 2026. All rights reserved.</span>
-          </div>
+      <Footer />
 
-          <div className={styles.footerLinks}>
-            <button type="button" onClick={() => handleNavClick(NAV_ITEMS[0])} className={styles.footerLink} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-              Home
-            </button>
-            <button type="button" onClick={() => handleNavClick(NAV_ITEMS[1])} className={styles.footerLink} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-              Games
-            </button>
-            <button type="button" onClick={() => handleNavClick(NAV_ITEMS[2])} className={styles.footerLink} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-              Age Zones
-            </button>
-            <Link to="/login" className={styles.footerLink}>
-              Login
-            </Link>
-            <Link to="/register" className={styles.footerLink}>
-              Sign Up
-            </Link>
-          </div>
-        </div>
-      </footer>
-
-      {/* Floating Back to Top Button */}
+      {/* Primary Circular Floating Smooth-Scroll Button */}
       {showBackToTop && (
         <button
           type="button"

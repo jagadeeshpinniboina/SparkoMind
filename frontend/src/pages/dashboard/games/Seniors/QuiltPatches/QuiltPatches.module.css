@@ -1,0 +1,937 @@
+/* ==========================================================================
+   QUILT PATCHES (WARM OBSIDIAN-SAGE • JEWEL-TONE FABRICS • GOLDEN STITCHING)
+   Seniors Spatial Rectangle Partitioning Arena - 100dvh Auto-Fit
+   ========================================================================== */
+
+.arenaContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100dvh;
+  max-height: 100dvh;
+  height: 100%;
+  max-height: 100%;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 20px 12px;
+  background: radial-gradient(circle at 50% 12%, rgba(16, 185, 129, 0.07) 0%, rgba(11, 18, 16, 0) 70%),
+              radial-gradient(circle at 80% 85%, rgba(245, 158, 11, 0.05) 0%, rgba(11, 18, 16, 0) 60%),
+              #0B1210;
+  color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* --------------------------------------------------------------------------
+   STREAMLINED & UNIFIED TOP HEADER (SINGLE ROW • SAVES ~180px)
+   -------------------------------------------------------------------------- */
+.compactHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 14px;
+  background: rgba(19, 32, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.seniorsExitBtn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  font-size: 0.86rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  color: #34D399 !important;
+  background: rgba(13, 25, 21, 0.8) !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.55) !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+.seniorsExitBtn:hover {
+  transform: translateX(-3px) !important;
+  background: rgba(13, 25, 21, 0.95) !important;
+  border-color: rgba(245, 158, 11, 0.7) !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.35), 0 0 25px rgba(245, 158, 11, 0.2) !important;
+  color: #A7F3D0 !important;
+  text-decoration: none !important;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #10B981;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.backLink:hover {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10B981;
+  transform: translateX(-2px);
+}
+
+.levelTabs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(11, 18, 16, 0.6);
+  padding: 2px 4px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #F8FAFC;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tabBtnActive {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(16, 185, 129, 0.25) 100%);
+  color: #FDE68A;
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
+}
+
+.tabBtnLocked {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  color: #475569 !important;
+}
+
+.tabBtnLocked:hover {
+  background: transparent !important;
+  color: #475569 !important;
+  transform: none !important;
+}
+
+.lockBadge {
+  font-size: 0.6rem;
+  margin-left: 2px;
+}
+
+.headerCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.levelTitleText {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #FEF3C7 20%, #F59E0B 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.levelBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.metricsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11, 18, 16, 0.6);
+  padding: 4px 10px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metricLabel {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.metricValEmerald {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #10B981;
+}
+
+.metricValGold {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FBBF24;
+}
+
+.metricDivider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.actionBtns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Glowing Bulb Hint Button */
+.hintBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1.5px solid rgba(245, 158, 11, 0.5);
+  color: #FDE68A;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+}
+
+.hintBtn:hover:not(:disabled) {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #F59E0B;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+  transform: translateY(-1px);
+}
+
+.hintBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #94A3B8;
+  box-shadow: none;
+}
+
+.toolBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(19, 32, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #CBD5E1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.toolBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  color: #F8FAFC;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.toolBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.iconBtn {
+  background: rgba(19, 32, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94A3B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.iconBtn:hover {
+  color: #F8FAFC;
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   STAGE WRAPPER (FLEX-CENTERED IN REMAINING VIEWPORT HEIGHT)
+   -------------------------------------------------------------------------- */
+.stageWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   RECESSED OBSIDIAN-SAGE QUILT TRAY
+   -------------------------------------------------------------------------- */
+.boardWrapper {
+  position: relative;
+  display: inline-block;
+  margin: auto;
+  padding: 14px;
+  background: #0A1411;
+  border: 2px solid rgba(245, 158, 11, 0.28);
+  border-radius: 20px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75),
+              inset 0 0 28px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+}
+
+/* Grid Board */
+.gridBoard {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  z-index: 2;
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+/* Level Grid Dimensions */
+.grid4x4 {
+  grid-template-columns: repeat(4, minmax(70px, 86px));
+}
+.grid4x4 .cell {
+  height: min(86px, 14vh);
+}
+
+.grid4x5 {
+  grid-template-columns: repeat(5, minmax(64px, 78px));
+}
+.grid4x5 .cell {
+  height: min(78px, 13vh);
+}
+
+.grid5x5 {
+  grid-template-columns: repeat(5, minmax(60px, 72px));
+}
+.grid5x5 .cell {
+  height: min(72px, 11.5vh);
+}
+
+.grid5x6 {
+  grid-template-columns: repeat(6, minmax(54px, 66px));
+}
+.grid5x6 .cell {
+  height: min(66px, 10.5vh);
+}
+
+.grid6x6 {
+  grid-template-columns: repeat(6, minmax(50px, 62px));
+  gap: 5px;
+}
+.grid6x6 .cell {
+  height: min(62px, 9.5vh);
+}
+
+/* --------------------------------------------------------------------------
+   TACTILE SAGE-OBSIDIAN BASE CELLS
+   -------------------------------------------------------------------------- */
+.cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #13231E;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease;
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+.cell:hover:not(.cellPatched) {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: #192E27;
+}
+
+/* Empty Center Weave Pip */
+.emptyPip {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   CLUE NUMBER BADGES (TACTILE OBSIDIAN-GOLD CIRCULAR MEDALLIONS)
+   -------------------------------------------------------------------------- */
+.clueBadge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  transition: all 0.22s ease;
+  z-index: 5;
+  width: 38px;
+  height: 38px;
+  font-size: 1.3rem;
+  background: #0E1B17;
+  color: #FBBF24;
+  border: 2px solid #F59E0B;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+}
+
+/* Clue Badge Inside Locked Patch */
+.clueBadgeLocked {
+  background: rgba(11, 18, 16, 0.8) !important;
+  color: #FEF3C7 !important;
+  border: 1.5px solid #FEF3C7 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   STITCHED QUILT PATCH CELLS (RICH JEWEL-TONE FABRICS WITH GOLDEN STITCHING)
+   -------------------------------------------------------------------------- */
+.cellPatched {
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.cellPatched:hover {
+  filter: brightness(1.08);
+  transform: scale(1.02);
+}
+
+/* Stitching Borders Along Perimeter of Patch */
+.stitchTop {
+  border-top: 2px dashed #FEF3C7 !important;
+}
+.stitchBottom {
+  border-bottom: 2px dashed #FEF3C7 !important;
+}
+.stitchLeft {
+  border-left: 2px dashed #FEF3C7 !important;
+}
+.stitchRight {
+  border-right: 2px dashed #FEF3C7 !important;
+}
+
+/* 8 Heirloom Jewel-Tone Fabric Colors */
+.colorEmerald {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+}
+.colorAmber {
+  background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
+}
+.colorPlum {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
+}
+.colorRose {
+  background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%) !important;
+}
+.colorTeal {
+  background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%) !important;
+}
+.colorSky {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
+}
+.colorGold {
+  background: linear-gradient(135deg, #CA8A04 0%, #A16207 100%) !important;
+}
+.colorCoral {
+  background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%) !important;
+}
+
+/* --------------------------------------------------------------------------
+   LIVE DRAG SELECTION RECTANGLE & FLOATING SIZE PILL
+   -------------------------------------------------------------------------- */
+.cellSelectedDrag {
+  background: rgba(245, 158, 11, 0.22) !important;
+  border-color: #F59E0B !important;
+  box-shadow: inset 0 0 10px rgba(245, 158, 11, 0.3) !important;
+}
+
+.dragTop {
+  border-top: 2.5px solid #F59E0B !important;
+}
+.dragBottom {
+  border-bottom: 2.5px solid #F59E0B !important;
+}
+.dragLeft {
+  border-left: 2.5px solid #F59E0B !important;
+}
+.dragRight {
+  border-right: 2.5px solid #F59E0B !important;
+}
+
+/* Floating Live Size Indicator Pill */
+.floatingSizePill {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0B1210;
+  border: 1.5px solid #F59E0B;
+  color: #FDE68A;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Hint Spotlight Pulse */
+.patchHintPulse {
+  animation: hintSpotlight 1.4s ease-in-out infinite alternate !important;
+}
+
+@keyframes hintSpotlight {
+  0% { box-shadow: 0 0 8px rgba(245, 158, 11, 0.5); }
+  100% { box-shadow: 0 0 26px rgba(245, 158, 11, 0.95); }
+}
+
+/* Invalid Drag Wobble */
+.boardShake {
+  animation: boardWobble 0.35s ease;
+}
+
+@keyframes boardWobble {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+/* --------------------------------------------------------------------------
+   PRE-LEVEL WELCOME BRIEFING OVERLAY (ZERO-SCROLL GUARANTEE)
+   -------------------------------------------------------------------------- */
+.briefingOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 16, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.briefingCard {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(19, 32, 28, 0.98) 0%, rgba(14, 23, 20, 1) 100%);
+  border: 2px solid rgba(245, 158, 11, 0.5);
+  border-radius: 20px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85),
+              0 0 32px rgba(245, 158, 11, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.briefingHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.missionBadge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 0.15rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.briefingTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.briefingGoal {
+  font-size: 0.95rem;
+  color: #CBD5E1;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Mini Visual Diagram */
+.diagramBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  background: #0A1411;
+  border: 1.5px solid rgba(245, 158, 11, 0.25);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.diagramFlow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.miniClueTile {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #13231E;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.miniClueNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0E1B17;
+  color: #FBBF24;
+  border: 2px solid #F59E0B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.diagramArrow {
+  font-size: 1.2rem;
+  color: #F59E0B;
+  font-weight: 800;
+}
+
+.miniPatch2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 24px);
+  grid-template-rows: repeat(2, 24px);
+  gap: 2px;
+  padding: 4px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  border: 2px dashed #FEF3C7;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.miniPatchCell {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.miniPatchBadge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #FEF3C7;
+}
+
+.diagramCaption {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  line-height: 1.3;
+}
+
+.reassuranceText {
+  font-size: 0.9rem;
+  color: #10B981;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.startButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+  color: #0B1210;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 0.65rem 1.6rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
+}
+
+.startButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.65);
+}
+
+/* --------------------------------------------------------------------------
+   VICTORY MODAL OVERLAY (WARM, DIGNIFIED • ZERO SCROLL)
+   -------------------------------------------------------------------------- */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 16, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 1rem;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.victoryCard {
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(19, 32, 28, 0.98) 0%, rgba(14, 23, 20, 1) 100%);
+  border: 2.5px solid #F59E0B;
+  border-radius: 22px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9),
+              0 0 40px rgba(245, 158, 11, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  box-sizing: border-box;
+}
+
+.victoryIcon {
+  font-size: 2.8rem;
+  animation: gentleBounce 1.2s ease infinite alternate;
+}
+
+@keyframes gentleBounce {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-6px) scale(1.06); }
+}
+
+.victoryTitle {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.victorySubtitle {
+  font-size: 1.05rem;
+  color: #CBD5E1;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.vitalityPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1.5px solid rgba(16, 185, 129, 0.5);
+  color: #A7F3D0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 0.45rem 1.2rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+}
+
+.victoryStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  margin: 0.1rem 0;
+}
+
+.statCard {
+  background: rgba(11, 18, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #94A3B8;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.statValue {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #F8FAFC;
+}
+
+.victoryActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.secondaryBtn {
+  flex: 1;
+  background: rgba(19, 32, 28, 0.9);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #CBD5E1;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+}
+
+.primaryVictoryBtn {
+  flex: 2;
+  background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+  border: none;
+  color: #0B1210;
+  padding: 0.75rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+}
+
+.primaryVictoryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.6);
+}

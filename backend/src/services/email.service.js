@@ -3,11 +3,17 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const EMAIL_USER = process.env.EMAIL_USER || 'pinniboinajagadeesh76@gmail.com';
-const EMAIL_APP_PASSWORD = process.env.EMAIL_APP_PASSWORD || 'jitpirxzsafqnnqj';
+const EMAIL_APP_PASSWORD = process.env.EMAIL_APP_PASSWORD || process.env.EMAIL_PASS || 'jitpirxzsafqnnqj';
 
-// Create persistent Gmail SMTP transporter
+// Create persistent pooled Gmail SMTP transporter for ultra-fast OTP delivery
 export const transporter = nodemailer.createTransport({
   service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  pool: true, // Keeps connection alive for instant delivery
+  maxConnections: 5,
+  maxMessages: 100,
   auth: {
     user: EMAIL_USER,
     pass: EMAIL_APP_PASSWORD

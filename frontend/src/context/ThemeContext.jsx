@@ -27,10 +27,6 @@ export const ThemeProvider = ({ children }) => {
       setDemographicState(newDemographic);
       localStorage.setItem('sparkomind_active_zone', newDemographic);
       localStorage.setItem('sparkomind_demographic', newDemographic);
-      // Sensible default themes per demographic
-      if (newDemographic === 'kids') {
-        setThemeState((prev) => (prev === 'dark' ? 'light' : prev));
-      }
     }
   }, []);
 

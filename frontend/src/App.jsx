@@ -14,12 +14,12 @@ import HelpPage from './pages/public/HelpPage.jsx';
 import ExploreGames from './pages/public/ExploreGames.jsx';
 
 // Enterprise Auth Pages (PART-1 Screens 02 & 03)
-import Login from './pages/Login.jsx';
-import Register from './pages/Register.jsx';
-import ForgotPassword from './pages/ForgotPassword.jsx';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 // Onboarding Pages (Protected)
-import ChooseJourney from './pages/ChooseJourney.jsx';
+import ChooseJourney from './pages/onboarding/ChooseJourney';
 import OnboardingWizard from './pages/onboarding/OnboardingWizard.jsx';
 
 // Demographic Dashboards (Protected)
@@ -31,6 +31,7 @@ import SeniorDashboard from './pages/dashboard/SeniorDashboard.jsx';
 import GamesLibrary from './pages/games/GamesLibrary.jsx';
 import GameDetail from './pages/games/GameDetail.jsx';
 import PlayArena from './pages/games/PlayArena.jsx';
+import DashboardPlayArena from './pages/dashboard/PlayArena.jsx';
 
 // Progress, Analytics & Gamification (Protected)
 import ProgressPage from './pages/progress/ProgressPage.jsx';
@@ -78,8 +79,17 @@ export const App = () => {
           {/* Dashboards */}
           <Route path="/dashboard" element={<DashboardRedirect />} />
           <Route path="/dashboard/kids" element={<KidsDashboard />} />
+          <Route path="/dashboard/kids/games" element={<GamesLibrary />} />
+          <Route path="/dashboard/kids/play/:gameId" element={<DashboardPlayArena />} />
+          <Route path="/dashboard/kids/play/:gameId/:level" element={<DashboardPlayArena />} />
           <Route path="/dashboard/adults" element={<AdultDashboard />} />
+          <Route path="/dashboard/adults/games" element={<GamesLibrary />} />
+          <Route path="/dashboard/adults/play/:gameId" element={<DashboardPlayArena />} />
+          <Route path="/dashboard/adults/play/:gameId/:level" element={<DashboardPlayArena />} />
           <Route path="/dashboard/seniors" element={<SeniorDashboard />} />
+          <Route path="/dashboard/seniors/games" element={<GamesLibrary />} />
+          <Route path="/dashboard/seniors/play/:gameId" element={<DashboardPlayArena />} />
+          <Route path="/dashboard/seniors/play/:gameId/:level" element={<DashboardPlayArena />} />
 
           {/* Games Catalogue & Play Arena */}
           <Route path="/games" element={<GamesLibrary />} />

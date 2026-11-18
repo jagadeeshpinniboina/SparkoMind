@@ -1,0 +1,320 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  letter-spacing: -0.01em;
+}
+
+.trophyIcon {
+  color: #F59E0B;
+}
+
+.pageSubtitle {
+  color: #94A3B8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.unlockedCounterPill {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 0.65rem 1.4rem;
+  border-radius: 9999px;
+  font-size: 0.92rem;
+  color: #FDE68A;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
+}
+
+.unlockedCounterPill strong {
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+
+/* Filter Row */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.filterBtn {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.55rem 1.15rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.filterBtnActive {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38BDF8;
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+/* Achievements Grid */
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.6rem;
+}
+
+.badgeCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.badgeCard:hover {
+  transform: translateY(-5px);
+}
+
+.badgeCardUnlocked {
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 27, 75, 0.75) 100%);
+}
+
+.badgeCardUnlocked:hover {
+  border-color: rgba(245, 158, 11, 0.8);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 24px rgba(245, 158, 11, 0.25);
+}
+
+.badgeCardLocked {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.65;
+}
+
+.cardTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconCircle {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badgeEmoji {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.pillGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tierBadge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.tier_bronze {
+  background: rgba(205, 127, 50, 0.18);
+  color: #E6A26A;
+  border: 1px solid rgba(205, 127, 50, 0.4);
+}
+
+.tier_silver {
+  background: rgba(203, 213, 225, 0.18);
+  color: #E2E8F0;
+  border: 1px solid rgba(203, 213, 225, 0.4);
+}
+
+.tier_gold {
+  background: rgba(245, 158, 11, 0.18);
+  color: #FDE68A;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.tier_platinum {
+  background: rgba(168, 85, 247, 0.18);
+  color: #E9D5FF;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.xpPill {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkMark {
+  color: #10B981;
+  font-size: 1.1rem;
+}
+
+.cardDesc {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.statusLabel {
+  color: #CBD5E1;
+}
+
+.countLabel {
+  color: #38BDF8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.track {
+  height: 8px;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s ease;
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (CRISP HIGH-CONTRAST ACHIEVEMENTS PAGE)
+   ========================================================================== */
+:global([data-theme="light"]) .pageTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .pageSubtitle {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .unlockedCounterPill {
+  background: #FEF3C7;
+  border-color: #F59E0B;
+  color: #92400E;
+}
+
+:global([data-theme="light"]) .unlockedCounterPill strong {
+  color: #78350F;
+}
+
+:global([data-theme="light"]) .filterBtn {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  color: #475569;
+}
+
+:global([data-theme="light"]) .filterBtn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .badgeCard {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .cardTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .cardDesc {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .statusLabel {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .track {
+  background: #E2E8F0;
+  border-color: #CBD5E1;
+}

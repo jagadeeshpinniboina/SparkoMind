@@ -1,0 +1,376 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.toastBanner {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  padding: 1rem 1.6rem;
+  border-radius: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4);
+  z-index: 9999;
+  animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  letter-spacing: -0.01em;
+}
+
+.targetIcon {
+  color: #F59E0B;
+}
+
+.pageSubtitle {
+  color: #94A3B8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.statsConsole {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.statPill {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #FDE68A;
+}
+
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.resetBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+/* Missions Grid */
+.missionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.missionCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.missionCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.cardClaimed {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  opacity: 0.75;
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rewardBadges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.xpBadge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.starBadge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 3px 8px;
+  border-radius: 9999px;
+}
+
+.missionTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.missionDesc {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.launchLink {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E2E8F0;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.launchLink:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.claimBtn {
+  flex: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  border: 1px solid rgba(254, 243, 199, 0.4);
+  color: #FFFFFF;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.claimBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5);
+}
+
+.claimBtnClaimed {
+  background: rgba(16, 185, 129, 0.2) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #10B981 !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
+.claimBtnDisabled {
+  background: rgba(51, 65, 85, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #94A3B8 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+}
+
+/* Weekly Grid */
+.weeklyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+.weeklyCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(139, 92, 246, 0.3);
+  border-radius: 20px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease;
+}
+
+.weeklyCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 92, 246, 0.6);
+}
+
+.weeklyTop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.questProgress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.questLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #CBD5E1;
+}
+
+.track {
+  height: 8px;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fill {
+  height: 100%;
+  background: linear-gradient(90deg, #A855F7 0%, #EC4899 100%);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (CRISP HIGH-CONTRAST MISSIONS PAGE)
+   ========================================================================== */
+:global([data-theme="light"]) .pageTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .pageSubtitle {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .streakPill {
+  background: #FEF3C7;
+  border-color: #F59E0B;
+  color: #92400E;
+}
+
+:global([data-theme="light"]) .missionCard {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .missionTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .missionDesc {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .weeklyCard {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .weeklyTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .weeklyDesc {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .questLabelRow {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .track {
+  background: #E2E8F0;
+  border-color: #CBD5E1;
+}
+
+:global([data-theme="light"]) .sectionHeading {
+  color: #0F172A;
+}

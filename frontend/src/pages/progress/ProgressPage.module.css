@@ -1,0 +1,459 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  letter-spacing: -0.01em;
+}
+
+.titleIcon {
+  color: #38BDF8;
+}
+
+.pageSubtitle {
+  color: #94A3B8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.userBadgePill {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+}
+
+.userAvatar {
+  font-size: 1.8rem;
+}
+
+.userName {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.userRank {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #38BDF8;
+}
+
+/* Summary Grid */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.metricCard {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.6rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.gaugeWrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+}
+
+.gaugeText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gaugeNumber {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.gaugeSub {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: #94A3B8;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.gaugeMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.gaugeTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.gaugeDesc {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+.statIconBox {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statValue {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.15;
+}
+
+.statTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  margin-top: 0.2rem;
+}
+
+.statSub {
+  font-size: 0.76rem;
+  color: #94A3B8;
+  margin-top: 0.2rem;
+}
+
+/* Games Section */
+.gamesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.zoneTabs {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.75);
+  padding: 0.35rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.zoneTab {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.45rem 0.95rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zoneTab:hover {
+  color: #FFFFFF;
+}
+
+.zoneTabActive {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+}
+
+/* Game Cards Grid */
+.gameCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.gameCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.gameCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+.gameCardTop {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.gameIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gameEmoji {
+  font-size: 1.8rem;
+}
+
+.gameInfo {
+  flex: 1;
+}
+
+.gameTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.gameCategory {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.gameLevelBadge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.barContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.barLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #CBD5E1;
+}
+
+.barPercent {
+  color: #38BDF8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.barTrack {
+  height: 8px;
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.barFill {
+  height: 100%;
+  background: linear-gradient(90deg, #38BDF8 0%, #F59E0B 100%);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.starsTrackRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.35rem;
+}
+
+.starPill {
+  flex: 1;
+  text-align: center;
+  padding: 0.3rem 0;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #94A3B8;
+}
+
+.starPillCleared {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #FDE68A;
+}
+
+.starPillPlayable {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+}
+
+.starPillLocked {
+  opacity: 0.4;
+}
+
+.playLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.playLink:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38BDF8;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (CRISP HIGH-CONTRAST PROGRESS PAGE)
+   ========================================================================== */
+:global([data-theme="light"]) .pageTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .pageSubtitle {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .userBadgePill {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .userName {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .metricCard {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .metricCard h3 {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .metricCard p {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .gameProgressCard {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .gameTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .gameCategory {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .sectionHeading {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .sectionSubtitle {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .starPill {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  color: #475569;
+}
+
+:global([data-theme="light"]) .starPillCleared {
+  background: #FEF3C7;
+  border-color: #F59E0B;
+  color: #92400E;
+}

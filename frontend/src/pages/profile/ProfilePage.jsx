@@ -1,363 +1,267 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   User, Mail, Calendar, Shield, Award, Flame, 
   Sparkles, Brain, Cpu, Compass, Layers, CheckCircle2, 
-  Edit3, Save, RefreshCw, BarChart2 
+  Edit3, Save, RefreshCw, BarChart2, Star, Check 
 } from 'lucide-react';
-import Card from '../../components/common/Card.jsx';
-import Button from '../../components/common/Button.jsx';
-import { useAuth } from '../../context/AuthContext.jsx';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { useLiveUserStats } from '../../utils/userStats.js';
+import { AVATAR_BADGES, AvatarRenderer } from '../../utils/avatar.js';
+import styles from './ProfilePage.module.css';
 
 export const ProfilePage = () => {
-  const { user, progress, updateProfileProgress } = useAuth();
-  const { demographic, setDemographic } = useTheme();
+  const {
+    displayName,
+    avatar,
+    bio,
+    totalStars,
+    totalXp,
+    level,
+    streak,
+    updateProfile
+  } = useLiveUserStats();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    name: user?.name || 'Jagadeesh Pinniboyina',
-    email: user?.email || 'pinniboinajagadeesh76@gmail.com',
-    avatar: '🚀',
-    bio: 'Software engineer and cognitive fitness enthusiast dedicated to keeping mental sharpness peak.'
-  });
+  const [editName, setEditName] = useState(displayName);
+  const [editAvatar, setEditAvatar] = useState(avatar || '🚀');
+  const [editBio, setEditBio] = useState(bio);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  const avatarsList = ['🚀', '🧠', '⚡', '👑', '🌟', '🎯', '🌿', '💻', '🎨', '🧸', '🌸'];
-
-  const cognitiveDimensions = [
-    { dimension: 'Algorithmic Sequence', score: 94, icon: Cpu, color: 'var(--brand-primary)' },
-    { dimension: 'Working Memory', score: 92, icon: Brain, color: '#FF8C42' },
-    { dimension: 'Logical Reasoning', score: 88, icon: Award, color: '#0284C7' },
-    { dimension: 'Processing Velocity', score: 85, icon: Flame, color: '#EF4444' },
-    { dimension: 'Spatial Orientation', score: 78, icon: Compass, color: '#10B981' }
-  ];
+  // Sync initial state when stats update
+  useEffect(() => {
+    setEditName(displayName);
+    setEditAvatar(avatar || '🚀');
+    setEditBio(bio);
+  }, [displayName, avatar, bio]);
 
   const handleSave = (e) => {
     e.preventDefault();
+    const finalAvatar = editAvatar || '🚀';
+    const finalName = editName.trim() || 'Jagadeesh Pinniboina';
+    const finalBio = editBio || 'Space Cadet exploring cognitive STEM labs across SparkoMind.';
+
+    updateProfile({
+      name: finalName,
+      avatar: finalAvatar,
+      bio: finalBio
+    });
+
     setIsEditing(false);
     setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
+    setTimeout(() => setSaveSuccess(false), 3500);
   };
 
-  const handleDemographicChange = (zone) => {
-    setDemographic(zone);
-    if (updateProfileProgress && progress) {
-      updateProfileProgress({ demographic: zone });
-    }
-  };
+  const currentBadgeInfo = AVATAR_BADGES.find(
+    (b) => b.emoji === (isEditing ? editAvatar : (avatar || '🚀'))
+  ) || AVATAR_BADGES[0];
+
+  const cognitiveDimensions = [
+    { dimension: 'Algorithmic Sequence & Code', score: 94, icon: Cpu, color: '#38BDF8' },
+    { dimension: 'Working Memory & Recall', score: 92, icon: Brain, color: '#F59E0B' },
+    { dimension: 'Spatial Reasoning & Conduits', score: 88, icon: Compass, color: '#A855F7' },
+    { dimension: 'Orbital Velocity & Physics', score: 85, icon: Flame, color: '#EC4899' },
+    { dimension: 'Light & Color Synthesis', score: 90, icon: Sparkles, color: '#10B981' }
+  ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      {/* Header */}
-      <div>
-        <h1 style={{ fontSize: '2rem', color: '#1E293B', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <User style={{ color: 'var(--brand-primary)' }} size={32} />
-          My Profile & Cognitive Identity
-        </h1>
-        <p style={{ color: '#64748B', fontSize: '0.95rem' }}>
-          Manage your personal learner credentials, demographic experience mode, and cognitive index.
-        </p>
-      </div>
-
-      {saveSuccess && (
-        <div
-          style={{
-            backgroundColor: '#10B981',
-            color: '#FFFFFF',
-            padding: '0.9rem 1.25rem',
-            borderRadius: '12px',
-            fontWeight: 700,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}
-        >
-          <CheckCircle2 size={18} />
-          Profile preferences updated successfully!
+    <div className={styles.container}>
+      {/* 1. Header Row */}
+      <div className={styles.headerRow}>
+        <div>
+          <h1 className={styles.pageTitle}>
+            <User size={28} className={styles.userIcon} />
+            <span>My Profile & Cognitive Identity</span>
+          </h1>
+          <p className={styles.pageSubtitle}>
+            Manage your personal learner identity, avatar badge, and cognitive index.
+          </p>
         </div>
-      )}
 
-      {/* Main Profile Header Card */}
-      <Card
-        style={{
-          padding: '2rem',
-          background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFD 100%)',
-          border: '1.5px solid var(--border-subtle)',
-          boxShadow: 'var(--shadow-card)'
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-            {/* Avatar */}
-            <div style={{ position: 'relative' }}>
-              <div
-                style={{
-                  width: '90px',
-                  height: '90px',
-                  borderRadius: '24px',
-                  backgroundColor: '#EEF2FF',
-                  border: '3px solid var(--brand-primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '3rem',
-                  boxShadow: '0 8px 24px rgba(94, 92, 230, 0.2)'
-                }}
-              >
-                {formData.avatar}
-              </div>
-            </div>
-
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#1E293B' }}>
-                  {formData.name}
-                </h2>
-                <span
-                  style={{
-                    fontSize: '0.8rem',
-                    fontWeight: 800,
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '999px',
-                    backgroundColor: demographic === 'kids' ? '#FFF2EB' : demographic === 'seniors' ? '#D1FAE5' : '#E0F2FE',
-                    color: demographic === 'kids' ? '#FF8C42' : demographic === 'seniors' ? '#10B981' : '#0284C7',
-                    border: '1px solid currentColor',
-                    textTransform: 'capitalize'
-                  }}
-                >
-                  {demographic} Zone Mode
-                </span>
-              </div>
-              <p style={{ color: '#64748B', fontSize: '0.92rem', marginTop: '0.35rem', maxWidth: '500px', lineHeight: 1.5 }}>
-                {formData.bio}
-              </p>
-              <div style={{ display: 'flex', gap: '1.25rem', marginTop: '0.65rem', fontSize: '0.82rem', color: '#94A3B8' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Mail size={14} /> {formData.email}
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Calendar size={14} /> Joined October 2026
-                </span>
-              </div>
-            </div>
+        {saveSuccess && (
+          <div className={styles.toastSuccess}>
+            <CheckCircle2 size={18} />
+            <span>Profile updated & synchronized live across SparkoMind!</span>
           </div>
-
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            style={{
-              padding: '0.6rem 1.25rem',
-              borderRadius: '10px',
-              border: '1.5px solid var(--border-subtle)',
-              backgroundColor: '#FFFFFF',
-              color: '#475569',
-              fontWeight: 700,
-              fontSize: '0.88rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem'
-            }}
-          >
-            <Edit3 size={15} /> {isEditing ? 'Cancel Edit' : 'Edit Profile'}
-          </button>
-        </div>
-
-        {/* Edit Form */}
-        {isEditing && (
-          <form onSubmit={handleSave} style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div className="grid grid-cols-2 sm:grid-cols-1 gap-4">
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>Full Name</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  style={{ width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px', border: '1.5px solid var(--border-subtle)' }}
-                />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>Email Address</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  style={{ width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px', border: '1.5px solid var(--border-subtle)' }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>Bio</label>
-              <textarea
-                rows={2}
-                value={formData.bio}
-                onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                style={{ width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px', border: '1.5px solid var(--border-subtle)' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.5rem' }}>Choose Avatar</label>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {avatarsList.map((av) => (
-                  <button
-                    key={av}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, avatar: av })}
-                    style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '10px',
-                      fontSize: '1.5rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      border: formData.avatar === av ? '2px solid var(--brand-primary)' : '1px solid #E2E8F0',
-                      backgroundColor: formData.avatar === av ? 'rgba(94, 92, 230, 0.1)' : '#FFFFFF',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    {av}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                style={{
-                  padding: '0.7rem 1.5rem',
-                  borderRadius: '10px',
-                  backgroundColor: 'var(--brand-primary)',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  fontWeight: 700,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem'
-                }}
-              >
-                <Save size={16} /> Save Changes
-              </button>
-            </div>
-          </form>
         )}
-      </Card>
-
-      {/* Metrics Summary Row */}
-      <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6">
-        <Card style={{ padding: '1.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--brand-primary)', marginBottom: '0.2rem' }}>
-            {(progress?.totalXp || 3850).toLocaleString()}
-          </div>
-          <div style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>Total Cognitive XP</div>
-        </Card>
-
-        <Card style={{ padding: '1.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '2rem', fontWeight: 900, color: '#FF8C42', marginBottom: '0.2rem' }}>
-            🔥 {progress?.currentStreak || 5}
-          </div>
-          <div style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>Day Training Streak</div>
-        </Card>
-
-        <Card style={{ padding: '1.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '2rem', fontWeight: 900, color: '#0284C7', marginBottom: '0.2rem' }}>
-            #4
-          </div>
-          <div style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>Global Rank</div>
-        </Card>
-
-        <Card style={{ padding: '1.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '2rem', fontWeight: 900, color: '#10B981', marginBottom: '0.2rem' }}>
-            12 / 15
-          </div>
-          <div style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>Core Games Explored</div>
-        </Card>
       </div>
 
-      {/* Cognitive Dimensions Radar / Progress Breakdown */}
-      <Card style={{ padding: '2rem' }}>
-        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1E293B', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <BarChart2 size={22} color="var(--brand-primary)" />
-          Cognitive Mastery Index
-        </h3>
-        <p style={{ color: '#64748B', fontSize: '0.88rem', marginBottom: '1.5rem' }}>
-          Dimension scores adapt dynamically through zero-trust algorithmic performance logging.
-        </p>
+      {/* 2. Main Profile Card */}
+      <div className={styles.profileCard}>
+        <div className={styles.profileHeader}>
+          {/* Glowing Avatar Display Badge */}
+          <div className={styles.avatarContainer}>
+            <AvatarRenderer
+              avatar={isEditing ? editAvatar : avatar}
+              name={isEditing ? editName : displayName}
+              size="xl"
+              shape="rounded"
+            />
+          </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {/* User Details & Edit Form */}
+          <div className={styles.profileDetails}>
+            {!isEditing ? (
+              <>
+                <div className={styles.nameRow}>
+                  <div className={styles.nameLockup}>
+                    <h2 className={styles.profileName}>{displayName}</h2>
+                    <span className={styles.avatarTag}>
+                      {currentBadgeInfo.emoji} {currentBadgeInfo.label}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(true)}
+                    className={styles.editBtn}
+                    title="Edit Display Name & Avatar Badge"
+                  >
+                    <Edit3 size={16} />
+                    <span>Edit Profile</span>
+                  </button>
+                </div>
+                <div className={styles.badgeRow}>
+                  <span className={styles.rankBadge}>Level {level} Space Pioneer</span>
+                  <span className={styles.statsPill}>⭐ {totalStars} Wonder Stars</span>
+                  <span className={styles.statsPill}>🔥 {streak} Day Streak</span>
+                </div>
+                <p className={styles.bioText}>
+                  {bio || 'Cadet exploring cognitive STEM labs across SparkoMind.'}
+                </p>
+              </>
+            ) : (
+              <form onSubmit={handleSave} className={styles.editForm}>
+                {/* Visual Avatar Badge Picker (6 Badges) */}
+                <div className={styles.badgePickerSection}>
+                  <label className={styles.pickerLabel}>
+                    <Sparkles size={14} style={{ color: '#38BDF8' }} />
+                    <span>Choose Your Cognitive Avatar Badge:</span>
+                  </label>
+                  <div className={styles.badgeGrid}>
+                    {AVATAR_BADGES.map((badge) => {
+                      const isSelected = editAvatar === badge.emoji;
+                      return (
+                        <button
+                          key={badge.id}
+                          type="button"
+                          className={`${styles.badgeCard} ${isSelected ? styles.badgeCardActive : ''}`}
+                          onClick={() => setEditAvatar(badge.emoji)}
+                        >
+                          <span className={styles.badgeCardEmoji}>{badge.emoji}</span>
+                          <div className={styles.badgeCardContent}>
+                            <span className={styles.badgeCardTitle}>{badge.label}</span>
+                            <span className={styles.badgeCardSubtitle}>{badge.subtitle}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.fieldLabel}>Display Name</label>
+                  <input
+                    type="text"
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                    className={styles.textInput}
+                    placeholder="Enter your name or cadet codename..."
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.fieldLabel}>Explorer Bio</label>
+                  <textarea
+                    value={editBio}
+                    onChange={(e) => setEditBio(e.target.value)}
+                    className={styles.textArea}
+                    rows="2"
+                    placeholder="Briefly describe your cognitive learning mission..."
+                  />
+                </div>
+
+                <div className={styles.formActionRow}>
+                  <button type="submit" className={styles.saveBtn}>
+                    <Save size={16} />
+                    <span>Save & Update Everywhere</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditName(displayName);
+                      setEditAvatar(avatar || '🚀');
+                      setEditBio(bio);
+                      setIsEditing(false);
+                    }}
+                    className={styles.cancelBtn}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+
+        {/* Live Milestone Numbers Strip */}
+        <div className={styles.metricStrip}>
+          <div className={styles.stripItem}>
+            <span className={styles.stripLabel}>Wonder Stars</span>
+            <span className={styles.stripValue}>⭐ {totalStars}</span>
+          </div>
+          <div className={styles.stripItem}>
+            <span className={styles.stripLabel}>Experience Points</span>
+            <span className={styles.stripValue}>⚡ {totalXp} XP</span>
+          </div>
+          <div className={styles.stripItem}>
+            <span className={styles.stripLabel}>Cognitive Level</span>
+            <span className={styles.stripValue}>Tier {level}</span>
+          </div>
+          <div className={styles.stripItem}>
+            <span className={styles.stripLabel}>Active Streak</span>
+            <span className={styles.stripValue}>🔥 {streak} Days</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Cognitive Aptitude Radar / Dimensions */}
+      <div className={styles.radarCard}>
+        <div className={styles.radarHeader}>
+          <h2 className={styles.radarTitle}>
+            <BarChart2 size={22} style={{ color: '#38BDF8' }} />
+            <span>Cognitive Aptitude Index</span>
+          </h2>
+          <span className={styles.radarSub}>Multi-dimensional skill diagnostics calculated from active gameplay</span>
+        </div>
+
+        <div className={styles.dimensionsList}>
           {cognitiveDimensions.map((dim) => {
             const Icon = dim.icon;
+
             return (
-              <div key={dim.dimension}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem', fontSize: '0.9rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontWeight: 700, color: '#334155' }}>
-                    <Icon size={18} color={dim.color} />
-                    <span>{dim.dimension}</span>
+              <div key={dim.dimension} className={styles.dimRow}>
+                <div className={styles.dimInfo}>
+                  <div className={styles.dimIconBox} style={{ background: `${dim.color}22`, color: dim.color }}>
+                    <Icon size={18} />
                   </div>
-                  <div style={{ fontWeight: 800, color: dim.color }}>{dim.score} / 100</div>
+                  <span className={styles.dimName}>{dim.dimension}</span>
                 </div>
-                <div style={{ width: '100%', height: '9px', backgroundColor: '#E2E8F0', borderRadius: '999px', overflow: 'hidden' }}>
-                  <div
-                    style={{
-                      width: `${dim.score}%`,
-                      height: '100%',
-                      backgroundColor: dim.color,
-                      borderRadius: '999px'
-                    }}
-                  />
+
+                <div className={styles.dimMeter}>
+                  <div className={styles.meterTrack}>
+                    <div
+                      className={styles.meterFill}
+                      style={{ width: `${dim.score}%`, background: dim.color }}
+                    />
+                  </div>
+                  <span className={styles.dimScore} style={{ color: dim.color }}>
+                    {dim.score}%
+                  </span>
                 </div>
               </div>
             );
           })}
         </div>
-      </Card>
-
-      {/* Demographic Zone Switcher */}
-      <Card style={{ padding: '2rem' }}>
-        <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#1E293B', marginBottom: '0.5rem' }}>
-          Demographic Experience Switcher
-        </h3>
-        <p style={{ fontSize: '0.88rem', color: '#64748B', marginBottom: '1.5rem' }}>
-          Seamlessly switch your active UI layout, typography scaling, and curated games catalogue.
-        </p>
-
-        <div className="grid grid-cols-3 md:grid-cols-1 gap-4">
-          {[
-            { id: 'kids', name: 'Kids Zone', age: 'Ages 6–12', color: '#FF8C42', desc: 'Bouncy visuals, playful stars, spatial adventure games.' },
-            { id: 'adults', name: 'Adult Zone', age: 'Ages 13–59', color: '#0284C7', desc: 'High-velocity logic, coding challenges, reaction meters.' },
-            { id: 'seniors', name: 'Senior Zone', age: 'Ages 60+', color: '#10B981', desc: 'Comfortable contrast, botanical memory, relaxed pacing.' }
-          ].map((z) => (
-            <div
-              key={z.id}
-              onClick={() => handleDemographicChange(z.id)}
-              style={{
-                padding: '1.25rem',
-                borderRadius: '14px',
-                border: '2px solid',
-                borderColor: demographic === z.id ? z.color : '#E2E8F0',
-                backgroundColor: demographic === z.id ? `${z.color}0D` : '#FFFFFF',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '1rem' }}>{z.name}</span>
-                {demographic === z.id && (
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: z.color, color: '#FFFFFF' }}>
-                    Active
-                  </span>
-                )}
-              </div>
-              <div style={{ fontSize: '0.78rem', color: z.color, fontWeight: 700, marginBottom: '0.4rem' }}>{z.age}</div>
-              <p style={{ fontSize: '0.82rem', color: '#64748B', lineHeight: 1.4 }}>{z.desc}</p>
-            </div>
-          ))}
-        </div>
-      </Card>
+      </div>
     </div>
   );
 };

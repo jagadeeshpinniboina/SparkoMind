@@ -1,0 +1,536 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  letter-spacing: -0.01em;
+}
+
+.trophyIcon {
+  color: #F59E0B;
+}
+
+.pageSubtitle {
+  color: #94A3B8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.myRankPill {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  padding: 0.65rem 1.4rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+}
+
+.myRankBadge {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #38BDF8;
+}
+
+.myRankName {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.myRankScore {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #FDE68A;
+}
+
+/* Zone Switch Tabs */
+.zoneSwitchTabs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 0.25rem 0.35rem;
+  backdrop-filter: blur(12px);
+}
+
+.zoneSwitchBtn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.4rem 0.95rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.zoneSwitchBtn:hover {
+  color: #FFFFFF;
+}
+
+.zoneSwitchActive {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+}
+
+:global([data-theme="light"]) .zoneSwitchTabs {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme="light"]) .zoneSwitchBtn {
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .zoneSwitchBtn:hover {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .zoneSwitchActive {
+  background: rgba(2, 132, 199, 0.12);
+  color: #0284C7;
+  border-color: rgba(2, 132, 199, 0.4);
+}
+
+/* Podium Grid */
+.podiumGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 800px) {
+  .podiumGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.podiumCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  border-radius: 22px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: transform 0.25s ease;
+}
+
+.podiumCard:hover {
+  transform: translateY(-5px);
+}
+
+.podiumGold {
+  border: 2px solid rgba(245, 158, 11, 0.6);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(69, 26, 3, 0.65) 100%);
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.25);
+}
+
+.podiumSilver {
+  border: 2px solid rgba(203, 213, 225, 0.5);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.7) 100%);
+}
+
+.podiumBronze {
+  border: 2px solid rgba(205, 127, 50, 0.5);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(67, 40, 24, 0.6) 100%);
+}
+
+.podiumMedal {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.podiumAvatar {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.podiumName {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.youBadge {
+  font-size: 0.68rem;
+  background: #38BDF8;
+  color: #0F172A;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  font-weight: 900;
+}
+
+.podiumBadge {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.podiumStats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.podiumStars {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #FDE68A;
+}
+
+.podiumXp {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #38BDF8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Control Bar */
+.controlBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.75);
+  padding: 0.35rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #FFFFFF;
+}
+
+.tabBtnActive {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  min-width: 280px;
+}
+
+.searchIcon {
+  color: #94A3B8;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 0.88rem;
+  width: 100%;
+}
+
+.searchInput::placeholder {
+  color: #64748B;
+}
+
+/* Table Card */
+.tableCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 80px 2.2fr 1.5fr 1fr 1fr 1fr;
+  padding: 1rem 1.5rem;
+  background: rgba(30, 41, 59, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+  align-items: center;
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 80px 2.2fr 1.5fr 1fr 1fr 1fr;
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.rowCurrentUser {
+  background: rgba(56, 189, 248, 0.1) !important;
+  border-left: 3px solid #38BDF8;
+}
+
+.colRank {
+  display: flex;
+  align-items: center;
+}
+
+.rankPill {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #94A3B8;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.rankPill_1 {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.15);
+}
+
+.rankPill_2 {
+  color: #CBD5E1;
+  background: rgba(203, 213, 225, 0.15);
+}
+
+.rankPill_3 {
+  color: #CD7F32;
+  background: rgba(205, 127, 50, 0.15);
+}
+
+.colLearner {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.tableAvatar {
+  font-size: 1.8rem;
+}
+
+.learnerName {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.youTag {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background: #38BDF8;
+  color: #0F172A;
+  padding: 1px 6px;
+  border-radius: 9999px;
+}
+
+.learnerHandle {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  margin-top: 1px;
+}
+
+.colZone {
+  display: flex;
+  align-items: center;
+}
+
+.zoneTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #CBD5E1;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.streakText {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #FDE68A;
+}
+
+.starsText {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #FBBF24;
+}
+
+.xpText {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #38BDF8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 860px) {
+  .tableHeader, .tableRow {
+    grid-template-columns: 50px 1.5fr 1fr 1fr;
+  }
+  .colZone, .colStreak {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (CRISP HIGH-CONTRAST LEADERBOARD)
+   ========================================================================== */
+:global([data-theme="light"]) .pageTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .pageSubtitle {
+  color: #334155;
+}
+
+:global([data-theme="light"]) .filterTab {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  color: #475569;
+}
+
+:global([data-theme="light"]) .filterTab:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .podiumCard {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .podiumName {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .podiumRankTitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .leaderboardTableWrapper {
+  background: #FFFFFF;
+  border-color: rgba(15, 23, 42, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .tableHeader {
+  background: #F8FAFC;
+  border-bottom-color: #E2E8F0;
+  color: #475569;
+}
+
+:global([data-theme="light"]) .tableRow {
+  border-bottom-color: #F1F5F9;
+}
+
+:global([data-theme="light"]) .tableRow:hover {
+  background: #F8FAFC;
+}
+
+:global([data-theme="light"]) .learnerName {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .learnerRankTitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .zoneTag {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  color: #334155;
+}
+
+:global([data-theme="light"]) .streakText {
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .starsText {
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .xpText {
+  color: #0284C7;
+}

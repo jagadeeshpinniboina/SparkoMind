@@ -1,0 +1,590 @@
+/* ==========================================================================
+   GRAVITYSLING — SPACE PHYSICS & ORBITAL TRAJECTORY STYLES
+   Theme: Obsidian Cosmic Dark (#070A11) with Amber / Cyan / Violet Accents
+   ========================================================================== */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, rgba(7, 10, 17, 0.98) 60%), #070A11;
+  color: #FFFFFF;
+  padding: 10px 20px 14px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   1. TOP HUD BAR
+   ========================================================================== */
+.hudHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 1rem;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 14px;
+  margin-bottom: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+.hudLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  transform: translateX(-2px);
+}
+
+/* Unified Cosmic Exit Button */
+.kidsArenaExitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #F8FAFC;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-decoration: none !important;
+  padding: 0.45rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid transparent;
+  background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), linear-gradient(135deg, #00F0FF, #8B5CF6);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.kidsArenaExitBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.kidsArenaExitBtn:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 6px 20px rgba(0, 240, 255, 0.3), 0 0 15px rgba(139, 92, 246, 0.3);
+  color: #FFFFFF;
+}
+
+.kidsArenaExitBtn:hover::after {
+  left: 140%;
+}
+
+.levelTabLocked {
+  opacity: 0.45;
+  cursor: not-allowed !important;
+  background: rgba(15, 23, 42, 0.4) !important;
+  color: #64748B !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.levelTabLocked:hover {
+  background: rgba(15, 23, 42, 0.4) !important;
+  color: #64748B !important;
+  transform: none !important;
+}
+
+.lockBadge {
+  font-size: 0.65rem;
+  margin-left: 2px;
+}
+
+.gameBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.brandIcon {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
+}
+
+.brandTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #FFFFFF 40%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hudCenter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.levelBadge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(168, 85, 247, 0.18);
+  color: #C084FC;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.levelLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94A3B8;
+  font-weight: 700;
+}
+
+.levelTabs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.25rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.levelTabBtn {
+  background: transparent;
+  border: none;
+  color: #64748B;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.levelTabBtn:hover:not(:disabled) {
+  color: #F1F5F9;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.levelTabActive {
+  color: #070A11 !important;
+  background: #F59E0B !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+}
+
+.hudRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.starsPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #F59E0B;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: 10px;
+}
+
+.utilityBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.utilityBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   2. MISSION BRIEF BANNER
+   ========================================================================== */
+.missionBanner {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 12px;
+  padding: 0.4rem 1rem;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.missionDetails h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0 0 0.15rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.missionDetails p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #94A3B8;
+  line-height: 1.3;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.statusReady {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38BDF8;
+}
+
+.statusFlying {
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #F59E0B;
+  animation: pulseGlow 1.2s infinite;
+}
+
+.statusDocked {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #10B981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   3. MAIN WORKSPACE / CANVAS ARENA (ZERO SCROLL FIT)
+   ========================================================================== */
+.arenaLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Futuristic Observational Frame */
+.canvasFrame {
+  position: relative;
+  background: rgba(11, 15, 25, 0.9);
+  backdrop-filter: blur(14px);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(245, 158, 11, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: min(860px, calc((100dvh - 200px) * 1.6 + 16px));
+  max-height: calc(100dvh - 195px);
+  aspect-ratio: 800 / 500;
+  box-sizing: border-box;
+}
+
+.cornerTL,
+.cornerTR,
+.cornerBL,
+.cornerBR {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid #F59E0B;
+  pointer-events: none;
+}
+
+.cornerTL { top: 6px; left: 6px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+.cornerTR { top: 6px; right: 6px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+.cornerBL { bottom: 6px; left: 6px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+.cornerBR { bottom: 6px; right: 6px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
+
+/* Interactive Canvas */
+.gameCanvas {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 800 / 500;
+  border-radius: 12px;
+  background: #070A11;
+  cursor: crosshair;
+  touch-action: none;
+  display: block;
+  object-fit: contain;
+}
+
+/* Metrics & Telemetry Bar */
+.controlsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: min(860px, calc((100dvh - 200px) * 1.6 + 16px));
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.35rem 0.9rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+.telemetryGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.telemetryItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.telemetryVal {
+  color: #F8FAFC;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.aimHintText {
+  font-size: 0.78rem;
+  color: #38BDF8;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ==========================================================================
+   4. VICTORY MODAL OVERLAY
+   ========================================================================== */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 10, 17, 0.92);
+  backdrop-filter: blur(18px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.victoryModal {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 24px;
+  padding: 2.25rem;
+  box-shadow: 0 0 80px rgba(245, 158, 11, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.trophyCircle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 2px solid #F59E0B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.6);
+  animation: floatTrophy 1.8s ease-in-out infinite alternate;
+}
+
+.victoryTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+}
+
+.victorySubtitle {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
+}
+
+.starsRow {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1.75rem;
+  color: #F59E0B;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+}
+
+.rewardBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rewardItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rewardVal {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #F59E0B;
+}
+
+.rewardLbl {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  text-transform: uppercase;
+}
+
+.modalActions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.replayBtn {
+  flex: 1;
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #E2E8F0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.replayBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nextLevelBtn {
+  flex: 1.4;
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  border: none;
+  color: #070A11;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+  transition: all 0.2s ease;
+}
+
+.nextLevelBtn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
+}
+
+@keyframes floatTrophy {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-6px) scale(1.05); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

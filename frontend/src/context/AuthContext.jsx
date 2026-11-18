@@ -15,7 +15,13 @@ export const AuthProvider = ({ children }) => {
         return null;
       }
       const stored = localStorage.getItem('sparkomind_user');
-      return stored ? JSON.parse(stored) : null;
+      if (!stored) return null;
+      const parsed = JSON.parse(stored);
+      if (parsed && (parsed.avatar === 'spark-brain-default' || !parsed.avatar || String(parsed.avatar).startsWith('spark-'))) {
+        parsed.avatar = '🚀';
+        try { localStorage.setItem('sparkomind_user', JSON.stringify(parsed)); } catch {}
+      }
+      return parsed;
     } catch {
       return null;
     }
@@ -95,6 +101,9 @@ export const AuthProvider = ({ children }) => {
           const res = await authApi.getMe();
           if (isMounted && res.success && res.data?.user) {
             const merged = { ...parsedUser, ...res.data.user };
+            if (!merged.avatar || merged.avatar === 'spark-brain-default' || String(merged.avatar).startsWith('spark-')) {
+              merged.avatar = '🚀';
+            }
             setUser(merged);
             setProgress(res.data.progress);
             if (res.data.token) {
@@ -143,6 +152,19 @@ export const AuthProvider = ({ children }) => {
     checkSession();
     return () => { isMounted = false; };
   }, []); // Run strictly ONCE on mount
+
+  // Live profile synchronization across components
+  useEffect(() => {
+    const handleProfileUpdate = (e) => {
+      if (e.detail) {
+        setUser((prev) => ({ ...prev, ...e.detail }));
+      }
+    };
+    window.addEventListener('sparkomind-profile-updated', handleProfileUpdate);
+    return () => {
+      window.removeEventListener('sparkomind-profile-updated', handleProfileUpdate);
+    };
+  }, []);
 
   const updateUserDemographic = async (newDemographic) => {
     if (!['kids', 'adults', 'seniors'].includes(newDemographic)) return;

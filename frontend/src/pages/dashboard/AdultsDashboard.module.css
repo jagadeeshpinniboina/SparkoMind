@@ -1,0 +1,680 @@
+/* AdultsDashboard.module.css - Obsidian Dark Cyber Neuro-Lab Theme */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0.5rem 0 3rem;
+  color: #F8FAFC;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   1. HERO PERFORMANCE CONSOLE
+   ========================================================================== */
+.heroBanner {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(8, 14, 26, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(6, 182, 212, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 580px;
+}
+
+.badgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  background: rgba(6, 182, 212, 0.12);
+  color: #06B6D4;
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.25);
+  width: fit-content;
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #06B6D4;
+  box-shadow: 0 0 8px #06B6D4;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.heroTitle {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heroTitleHighlight {
+  background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 0.95rem;
+  color: #94A3B8;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Metric Pills */
+.heroStats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.statTag {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 0.85rem 1.25rem;
+  min-width: 125px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.statTag:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(6, 182, 212, 0.15);
+}
+
+.statValue {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.statValueCyan {
+  color: #06B6D4;
+}
+
+.statValueEmerald {
+  color: #10B981;
+}
+
+.statLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+}
+
+/* Milestone Console: Bandwidth / XP + 7-Day Performance Pulse */
+.milestoneConsole {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .milestoneConsole {
+    grid-template-columns: 1fr;
+  }
+}
+
+.progressBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.progressLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #E2E8F0;
+}
+
+.progressValue {
+  color: #06B6D4;
+  font-size: 0.8rem;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(30, 41, 59, 0.7);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #06B6D4 0%, #10B981 100%);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 7-Day Pulse Tracker */
+.streakConsole {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.streakHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #E2E8F0;
+}
+
+.punchCardRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.punchDot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dotCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(30, 41, 59, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748B;
+  transition: all 0.25s ease;
+}
+
+.dotActive {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(16, 185, 129, 0.3) 100%);
+  border-color: #06B6D4;
+  color: #FFFFFF;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.dotToday {
+  border-color: #10B981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.dotLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   2. 4-MISSION ACTIVE CARDS SECTION
+   ========================================================================== */
+.questsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sectionSubtitle {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  margin: 0.25rem 0 0;
+}
+
+/* 4 Mission Cards Grid */
+.questsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .questsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.questCard {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.questCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.questCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 
+    0 18px 40px rgba(0, 0, 0, 0.7),
+    0 0 28px rgba(6, 182, 212, 0.16);
+}
+
+.questCard:hover::after {
+  border-color: rgba(6, 182, 212, 0.45);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.cardHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emojiBadge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(15, 23, 42, 0.8) 75%);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.questCard:hover .emojiBadge {
+  transform: scale(1.08) rotate(3deg);
+  border-color: #06B6D4;
+  box-shadow: 0 0 22px rgba(6, 182, 212, 0.45);
+}
+
+.badgeStack {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryBadge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(6, 182, 212, 0.12);
+  color: #06B6D4;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.ageBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #94A3B8;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cardTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.tagline {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 2.8em;
+}
+
+.skillsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* Level Selector Block */
+.levelSelectorBlock {
+  background: rgba(8, 14, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.levelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.activeLevelTitle {
+  color: #06B6D4;
+  font-weight: 700;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.levelPillsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.levelBtn {
+  flex: 1;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(30, 41, 59, 0.6);
+  color: #94A3B8;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.levelBtn:hover {
+  color: #FFFFFF;
+  border-color: rgba(6, 182, 212, 0.4);
+  background: rgba(6, 182, 212, 0.12);
+}
+
+.levelBtnActive {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(16, 185, 129, 0.25) 100%) !important;
+  color: #06B6D4 !important;
+  border-color: rgba(6, 182, 212, 0.7) !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
+}
+
+.levelBtnLocked {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  background: rgba(15, 23, 42, 0.4) !important;
+  color: #64748B !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.levelBtnLocked:hover {
+  background: rgba(15, 23, 42, 0.4) !important;
+  color: #64748B !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  transform: none !important;
+}
+
+.lockIcon {
+  font-size: 0.65rem;
+  margin-left: 2px;
+}
+
+/* Primary Launch CTA */
+.launchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+  color: #04141E;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none !important;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.launchBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.55);
+  background: linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%);
+  color: #020C13;
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (CRISP HIGH-CONTRAST NEURO-LAB)
+   ========================================================================== */
+:global([data-theme="light"]) .container {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .heroBanner {
+  background: linear-gradient(135deg, #0284C7 0%, #2563EB 55%, #4F46E5 100%) !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 0 16px 40px rgba(2, 132, 199, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  color: #FFFFFF !important;
+}
+
+:global([data-theme="light"]) .heroBanner .heroTitle,
+:global([data-theme="light"]) .heroBanner .heroSubtitle,
+:global([data-theme="light"]) .heroBanner .statValue {
+  color: #FFFFFF !important;
+}
+
+:global([data-theme="light"]) .heroBanner .statTag {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+:global([data-theme="light"]) .heroBanner .badgePill {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #FEF08A !important;
+}
+
+:global([data-theme="light"]) .sectionTitle {
+  color: #0F172A !important;
+}
+
+:global([data-theme="light"]) .sectionSubtitle {
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .questCard {
+  background: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+:global([data-theme="light"]) .cardTitle {
+  color: #0F172A !important;
+}
+
+:global([data-theme="light"]) .tagline {
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .skillPill {
+  background: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .missionTierBar {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+:global([data-theme="light"]) .tierTitleGroup {
+  color: #475569 !important;
+}
+
+:global([data-theme="light"]) .tierCurrentTitle {
+  color: #0F172A !important;
+}
+
+:global([data-theme="light"]) .tierClearedBadge {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #F59E0B !important;
+  font-weight: 700 !important;
+}
+
+:global([data-theme="light"]) .levelBtn {
+  background: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .levelBtn:hover:not(:disabled) {
+  background: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+}
+
+:global([data-theme="light"]) .levelBtnLocked {
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #475569 !important;
+}
+
+:global([data-theme="light"]) .levelBtnActive {
+  background: #E0F2FE !important;
+  color: #0369A1 !important;
+  border: 1.5px solid #0284C7 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.3) !important;
+}
+
+:global([data-theme="light"]) .benchmarkCard {
+  background: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}

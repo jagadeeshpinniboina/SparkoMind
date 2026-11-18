@@ -1,0 +1,500 @@
+/* SeniorDashboard.module.css - Warm Obsidian-Sage & Gold Mindful Sanctuary Theme */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0.5rem 0 3rem;
+  color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+}
+
+/* ==========================================================================
+   1. HERO GREETING BANNER
+   ========================================================================== */
+.heroBanner {
+  background: linear-gradient(135deg, rgba(19, 32, 28, 0.95) 0%, rgba(11, 18, 16, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(16, 185, 129, 0.3);
+  border-radius: 24px;
+  padding: 2.2rem;
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(16, 185, 129, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 620px;
+}
+
+.badgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.2);
+  width: fit-content;
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.heroTitle {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.heroTitleHighlight {
+  background: linear-gradient(135deg, #FEF3C7 20%, #F59E0B 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.heroStats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.statTag {
+  background: rgba(11, 18, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 0.85rem 1.25rem;
+  min-width: 140px;
+}
+
+.statValue {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.statValueGold {
+  color: #FBBF24;
+}
+
+.statValueEmerald {
+  color: #10B981;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  margin-top: 0.2rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   2. ACTIVITIES SECTION (4 DEDICATED SENIOR EXERCISES)
+   ========================================================================== */
+.activitiesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sectionTitle {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.sectionSubtitle {
+  font-size: 1.1rem;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.activitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 500px) {
+  .activitiesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.activityCard {
+  background: linear-gradient(145deg, rgba(19, 32, 28, 0.95) 0%, rgba(14, 23, 20, 0.98) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+}
+
+.activityCard:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(245, 158, 11, 0.15);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emojiBadge {
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.badgeStack {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryBadge {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.ageBadge {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.cardTitle {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.tagline {
+  font-size: 1.05rem;
+  color: #CBD5E1;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.skillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94A3B8;
+  background: rgba(11, 18, 16, 0.7);
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Level Selector Block */
+.levelSelectorBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(11, 18, 16, 0.65);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.levelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: #94A3B8;
+}
+
+.activeLevelTitle {
+  color: #FBBF24;
+  font-weight: 700;
+}
+
+.levelPillsRow {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.levelBtn {
+  flex: 1;
+  background: rgba(19, 32, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94A3B8;
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.levelBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #F8FAFC;
+}
+
+.levelBtnActive {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(16, 185, 129, 0.25) 100%);
+  color: #FDE68A;
+  border: 1.5px solid #F59E0B;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.levelBtnLocked {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  background: rgba(11, 18, 16, 0.4) !important;
+  color: #64748B !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.levelBtnLocked:hover {
+  background: rgba(11, 18, 16, 0.4) !important;
+  color: #64748B !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  transform: none !important;
+}
+
+.lockIcon {
+  font-size: 0.75rem;
+  margin-left: 2px;
+}
+
+/* Primary Launch CTA */
+.launchBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+  color: #0B1210;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+  margin-top: 0.25rem;
+}
+
+.launchBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.55);
+}
+
+/* ==========================================================================
+   LIGHT THEME OVERRIDES (CRISP HIGH-CONTRAST SENIORS SANCTUARY)
+   ========================================================================== */
+:global([data-theme="light"]) .container {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .heroBanner {
+  background: linear-gradient(135deg, #059669 0%, #10B981 50%, #0D9488 100%) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 16px 40px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  color: #FFFFFF !important;
+}
+
+:global([data-theme="light"]) .heroBanner .heroTitle,
+:global([data-theme="light"]) .heroBanner .heroSubtitle,
+:global([data-theme="light"]) .heroBanner .statValue {
+  color: #FFFFFF !important;
+}
+
+:global([data-theme="light"]) .heroBanner .statTag {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+:global([data-theme="light"]) .heroBanner .badgePill {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #FEF08A !important;
+}
+
+:global([data-theme="light"]) .sectionTitle {
+  color: #0F172A !important;
+}
+
+:global([data-theme="light"]) .sectionSubtitle {
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .questCard {
+  background: #FFFFFF !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+:global([data-theme="light"]) .cardTitle {
+  color: #0F172A !important;
+}
+
+:global([data-theme="light"]) .tagline {
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .skillPill {
+  background: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .missionTierBar {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+:global([data-theme="light"]) .tierTitleGroup {
+  color: #475569 !important;
+}
+
+:global([data-theme="light"]) .tierCurrentTitle {
+  color: #0F172A !important;
+}
+
+:global([data-theme="light"]) .tierClearedBadge {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #F59E0B !important;
+  font-weight: 700 !important;
+}
+
+:global([data-theme="light"]) .levelBtn {
+  background: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+
+:global([data-theme="light"]) .levelBtn:hover:not(:disabled) {
+  background: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+}
+
+:global([data-theme="light"]) .levelBtnLocked {
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #475569 !important;
+}
+
+:global([data-theme="light"]) .levelBtnActive {
+  background: #D1FAE5 !important;
+  color: #065F46 !important;
+  border: 1.5px solid #059669 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3) !important;
+}
+
+:global([data-theme="light"]) .milestoneConsole {
+  background: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}

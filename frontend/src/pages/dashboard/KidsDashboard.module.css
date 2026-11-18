@@ -1,0 +1,1145 @@
+/* ==========================================================================
+   KIDS UNIVERSE DASHBOARD (SPACE-LAB VIBRANT THEME)
+   Ages 6–12 STEM & AI Cognitive Odyssey
+   ========================================================================== */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  transition: color 0.25s ease;
+}
+
+/* ==========================================================================
+   1. HERO COSMIC SPACE-LAB BANNER
+   ========================================================================== */
+.heroBanner {
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Dark Mode Celestial Sky (Night Cosmic Theme) */
+.heroBannerNight {
+  background: linear-gradient(135deg, #0B1120 0%, #1E1B4B 45%, #2E1065 100%);
+  border: 1.5px solid rgba(139, 92, 246, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Light Mode Celestial Sky (Day Radiant Theme) */
+.heroBannerDay {
+  background: linear-gradient(135deg, #0284C7 0%, #2563EB 55%, #4F46E5 100%) !important;
+  border: 1.5px solid rgba(125, 211, 252, 0.6) !important;
+  box-shadow: 0 16px 40px rgba(2, 132, 199, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Ambient cosmic nebulae (Dark Mode) */
+.heroBannerNight::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -15%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, rgba(56, 189, 248, 0.12) 50%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.heroBannerNight::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: 10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  filter: blur(50px);
+}
+
+/* Ambient sunny radiance (Light Mode) */
+.heroBannerDay::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: 20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.25) 0%, rgba(56, 189, 248, 0.15) 50%, transparent 70%);
+  pointer-events: none;
+  filter: blur(45px);
+}
+
+/* ==========================================================================
+   THEME-REACTIVE CELESTIAL SKY (MOON & STARS / SUN & CLOUDS)
+   ========================================================================== */
+.celestialSkyNight,
+.celestialSkyDay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* 1. Dark Mode: Glowing Crescent Moon with Craters & Float Hover */
+.crescentMoonWrapper {
+  position: absolute;
+  top: 18px;
+  right: 48px;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatMoon 6s ease-in-out infinite;
+}
+
+.moonAura {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 230, 138, 0.3) 0%, rgba(245, 158, 11, 0.1) 45%, transparent 70%);
+  pointer-events: none;
+  filter: blur(14px);
+}
+
+.moonSvg {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 16px rgba(253, 230, 138, 0.85));
+}
+
+@keyframes floatMoon {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-4deg);
+  }
+}
+
+/* Dark Mode: Twinkling Constellation Stars */
+.constellationStars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.celestialStar {
+  position: absolute;
+  color: #FDE68A;
+  font-size: 1rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 6px rgba(253, 230, 138, 0.9));
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+
+.cStar1 { top: 16%; left: 16%; font-size: 1.2rem; animation-delay: 0s; color: #7DD3FC; }
+.cStar2 { top: 32%; left: 42%; font-size: 0.9rem; animation-delay: 0.9s; color: #FDE68A; }
+.cStar3 { top: 14%; right: 38%; font-size: 1.3rem; animation-delay: 1.8s; color: #F472B6; }
+.cStar4 { top: 74%; left: 18%; font-size: 0.85rem; animation-delay: 1.3s; color: #FDE68A; }
+.cStar5 { top: 68%; right: 22%; font-size: 1.15rem; animation-delay: 2.2s; color: #A78BFA; }
+.cStar6 { top: 46%; right: 42%; font-size: 0.85rem; animation-delay: 0.5s; color: #38BDF8; }
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.85) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35) rotate(15deg);
+  }
+}
+
+/* 2. Light Mode: Radiant Glowing Sun with Rotating Light Rays */
+.radiantSunWrapper {
+  position: absolute;
+  top: 15px;
+  right: 48px;
+  width: 86px;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sunAura {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.55) 0%, rgba(251, 191, 36, 0.2) 50%, transparent 75%);
+  pointer-events: none;
+  filter: blur(14px);
+}
+
+.sunRaysSvg {
+  width: 86px;
+  height: 86px;
+  animation: rotateSun 18s linear infinite;
+  filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.75));
+}
+
+@keyframes rotateSun {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Light Mode: Gently Drifting Soft Clouds */
+.cloudTrack {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cloudPuff {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.cloud1 {
+  top: 14%;
+  left: -130px;
+  width: 120px;
+  height: 54px;
+  animation: driftCloud1 24s linear infinite;
+}
+
+.cloud2 {
+  top: 55%;
+  left: -110px;
+  width: 100px;
+  height: 48px;
+  animation: driftCloud2 32s linear infinite 4s;
+}
+
+.cloud3 {
+  top: 28%;
+  left: -140px;
+  width: 130px;
+  height: 58px;
+  animation: driftCloud3 28s linear infinite 12s;
+}
+
+@keyframes driftCloud1 {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+    opacity: 0;
+  }
+}
+
+@keyframes driftCloud2 {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+    opacity: 0;
+  }
+}
+
+@keyframes driftCloud3 {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .crescentMoonWrapper,
+  .radiantSunWrapper {
+    right: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .crescentMoonWrapper,
+  .radiantSunWrapper {
+    right: 20px;
+    top: 12px;
+    transform: scale(0.8);
+  }
+}
+
+/* Twinkling Starfield */
+.starField {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.starDot {
+  position: absolute;
+  background: #FFFFFF;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+.star1 { top: 18%; left: 14%; width: 4px; height: 4px; animation-delay: 0s; }
+.star2 { top: 32%; left: 45%; width: 3px; height: 3px; animation-delay: 1.1s; }
+.star3 { top: 15%; right: 28%; width: 5px; height: 5px; animation-delay: 0.5s; }
+.star4 { top: 65%; left: 22%; width: 3px; height: 3px; animation-delay: 1.8s; }
+.star5 { top: 78%; right: 18%; width: 4px; height: 4px; animation-delay: 2.3s; }
+.star6 { top: 48%; right: 40%; width: 3px; height: 3px; animation-delay: 1.4s; }
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  position: relative;
+  z-index: 2;
+}
+
+.heroLeftCol {
+  flex: 1 1 500px;
+  max-width: 680px;
+}
+
+.badgeRowWithMascot {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.badgePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  padding: 0.32rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FDE68A;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+}
+
+.heroTitle {
+  font-size: clamp(1.4rem, 2.5vw, 2.35rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0 0 0.45rem 0;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.waveHand {
+  display: inline-block;
+  animation: waveMotion 2.2s infinite ease-in-out;
+  transform-origin: 70% 70%;
+}
+
+@keyframes waveMotion {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(14deg); }
+  40% { transform: rotate(-8deg); }
+  60% { transform: rotate(14deg); }
+  80% { transform: rotate(-4deg); }
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  color: rgba(226, 232, 240, 0.95);
+  margin: 0 0 1.15rem 0;
+  line-height: 1.5;
+}
+
+.heroSubtitle strong {
+  color: #38BDF8;
+  font-weight: 700;
+}
+
+.heroRightCol {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  align-self: flex-end;
+}
+
+/* Animated Space Cadet Mascot Badge (Glossy SVG Helmet) */
+.floatingMascotWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.cadetMascotBadge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatY 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 16px rgba(56, 189, 248, 0.45));
+}
+
+.mascotSvg {
+  width: 64px;
+  height: 64px;
+  display: block;
+}
+
+.mascotShadow {
+  width: 48px;
+  height: 10px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 75%);
+  border-radius: 50%;
+  animation: shadowScale 3.5s ease-in-out infinite;
+  margin-top: 2px;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shadowScale {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(0.7); opacity: 0.25; }
+}
+
+.heroStats {
+  display: flex;
+  gap: 0.85rem;
+  align-self: flex-end;
+  margin-bottom: 12px;
+}
+
+.statTag {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.9rem 1.25rem;
+  border-radius: 16px;
+  text-align: center;
+  min-width: 115px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease;
+}
+
+.statTag:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.statValue {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.1;
+  text-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: #FDE68A;
+  margin-top: 0.35rem;
+}
+
+/* Milestone Console: XP Progress + 7-Day Punch Card */
+.milestoneConsole {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  background: rgba(10, 15, 30, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 1.1rem 1.4rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 860px) {
+  .milestoneConsole {
+    grid-template-columns: 1fr;
+  }
+}
+
+.progressBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.progressLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #E2E8F0;
+}
+
+.progressValue {
+  color: #38BDF8;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-weight: 800;
+}
+
+.progressTrack {
+  height: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #38BDF8 0%, #818CF8 50%, #EC4899 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.65);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.streakConsole {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.streakHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #E2E8F0;
+}
+
+.punchCardRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.punchDot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.dotCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+
+.dotActive {
+  background: #F59E0B;
+  border-color: #FDE68A;
+  color: #1E1B4B;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.dotToday {
+  border-color: #38BDF8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+  transform: scale(1.12);
+}
+
+.dotLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(226, 232, 240, 0.75);
+}
+
+/* ==========================================================================
+   2. ACTIVE QUESTS SECTION (BALANCED 2×2 COMPACT GRID)
+   ========================================================================== */
+.questsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  letter-spacing: -0.01em;
+  transition: color 0.25s ease;
+}
+
+.sectionSubtitle {
+  font-size: 0.92rem;
+  color: #94A3B8;
+  margin: 0.25rem 0 0 0;
+  line-height: 1.5;
+  transition: color 0.25s ease;
+}
+
+/* Balanced 2-Column Responsive Grid */
+.questsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+
+@media (max-width: 860px) {
+  .questsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Compact Kids Game Card (18px 20px padding) */
+.questCard {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.15rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease,
+              background 0.25s ease;
+}
+
+.questCard:hover {
+  transform: translateY(-5px);
+}
+
+/* Distinct Per-Game Theme Accent Borders & Corner Aura */
+.cardAura {
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+
+.questCard:hover .cardAura {
+  opacity: 0.75;
+}
+
+/* 1. BotScript Theme: Cyan & Indigo */
+.cardBotScript {
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 27, 75, 0.85) 100%);
+}
+.cardBotScript:hover {
+  border-color: rgba(56, 189, 248, 0.85);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45), 0 0 26px rgba(56, 189, 248, 0.3);
+}
+
+/* 2. Circuit Connect Theme: Amber & Gold */
+.cardCircuit {
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(69, 26, 3, 0.75) 100%);
+}
+.cardCircuit:hover {
+  border-color: rgba(251, 191, 36, 0.85);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45), 0 0 26px rgba(245, 158, 11, 0.3);
+}
+
+/* 3. Gravity Sling Theme: Violet & Magenta */
+.cardGravity {
+  border: 1.5px solid rgba(168, 85, 247, 0.4);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(88, 28, 135, 0.75) 100%);
+}
+.cardGravity:hover {
+  border-color: rgba(236, 72, 153, 0.85);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45), 0 0 26px rgba(168, 85, 247, 0.3);
+}
+
+/* 4. Color Lab Theme: Emerald & Rainbow Plasma */
+.cardColorLab {
+  border: 1.5px solid rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(6, 78, 59, 0.75) 100%);
+}
+.cardColorLab:hover {
+  border-color: rgba(6, 182, 212, 0.85);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45), 0 0 26px rgba(16, 185, 129, 0.3);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cardHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Animated 3D Floating Icon Badge */
+.iconBadgeWrapper {
+  display: inline-flex;
+  animation: floatIcon 3.2s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}
+
+.emojiBadge {
+  font-size: 2.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.questCard:hover .emojiBadge {
+  transform: scale(1.15) rotate(6deg);
+}
+
+.badgeStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.categoryBadge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid;
+}
+
+.ageBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #CBD5E1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.cardTitle {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+  transition: color 0.25s ease;
+}
+
+.tagline {
+  font-size: 0.88rem;
+  color: #CBD5E1;
+  margin: 0;
+  line-height: 1.45;
+  transition: color 0.25s ease;
+}
+
+.skillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 9px;
+  border-radius: 9999px;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* ==========================================================================
+   UNIFIED COMPACT MISSION TIER & STAR SELECTOR BAR
+   ========================================================================== */
+.missionTierBar {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 2;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.tierHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.tierTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.tierLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tierCurrentTitle {
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.tierClearedBadge {
+  font-weight: 800;
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.74rem;
+}
+
+.tierPillsRow {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.tierBtn {
+  flex: 1;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #E2E8F0;
+  padding: 0.45rem 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tierBtnContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tierBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(51, 65, 85, 0.9);
+}
+
+/* Cleared/Unlocked Tier with Glowing Golden Star */
+.tierBtnCleared {
+  background: rgba(245, 158, 11, 0.18) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  color: #FDE68A !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+}
+
+/* Active Selected Tier */
+.tierBtnActive {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.35) 100%) !important;
+  border-color: #F59E0B !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
+  transform: scale(1.04);
+}
+
+/* Locked Tier */
+.tierBtnLocked {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  color: #64748B !important;
+}
+
+.starIcon {
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.lockIcon {
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   PLAYFUL BUBBLY LAUNCH BUTTONS
+   ========================================================================== */
+.launchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.launchBtn:hover {
+  transform: translateY(-3px) scale(1.02);
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/* 1. BotScript Launch Button */
+.launchBtnBotScript {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 50%, #4338CA 100%);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.launchBtnBotScript:hover {
+  box-shadow: 0 12px 26px rgba(2, 132, 199, 0.6), 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+/* 2. Circuit Connect Launch Button */
+.launchBtnCircuit {
+  background: linear-gradient(135deg, #D97706 0%, #B45309 50%, #92400E 100%);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.launchBtnCircuit:hover {
+  box-shadow: 0 12px 26px rgba(217, 119, 6, 0.6), 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+/* 3. Gravity Sling Launch Button */
+.launchBtnGravity {
+  background: linear-gradient(135deg, #7E22CE 0%, #6B21A8 50%, #BE185D 100%);
+  box-shadow: 0 6px 20px rgba(126, 34, 206, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.launchBtnGravity:hover {
+  box-shadow: 0 12px 26px rgba(126, 34, 206, 0.6), 0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+/* 4. Color Lab Launch Button */
+.launchBtnColorLab {
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #0E7490 100%);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.launchBtnColorLab:hover {
+  box-shadow: 0 12px 26px rgba(5, 150, 105, 0.6), 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+/* ==========================================================================
+   3. LIGHT THEME OVERRIDES (CLEAN AIRY DAYLIGHT PALETTE)
+   ========================================================================== */
+:global([data-theme="light"]) .sectionTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .sectionSubtitle {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .questCard {
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .cardBotScript {
+  border-color: rgba(56, 189, 248, 0.55);
+}
+:global([data-theme="light"]) .cardCircuit {
+  border-color: rgba(245, 158, 11, 0.55);
+}
+:global([data-theme="light"]) .cardGravity {
+  border-color: rgba(168, 85, 247, 0.55);
+}
+:global([data-theme="light"]) .cardColorLab {
+  border-color: rgba(16, 185, 129, 0.55);
+}
+
+:global([data-theme="light"]) .cardTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .tagline {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .ageBadge {
+  background: #F1F5F9;
+  border-color: #E2E8F0;
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .skillPill {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+  color: #334155;
+}
+
+:global([data-theme="light"]) .missionTierBar {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+}
+
+:global([data-theme="light"]) .tierTitleGroup {
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .tierCurrentTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .tierBtn {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  color: #334155;
+}
+
+:global([data-theme="light"]) .tierBtn:hover:not(:disabled) {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+}
+
+:global([data-theme="light"]) .tierBtnActive {
+  background: #FDE68A !important;
+  color: #78350F !important;
+  border: 1.5px solid #D97706 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3) !important;
+}
+
+:global([data-theme="light"]) .tierClearedBadge {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid #F59E0B !important;
+  font-weight: 700 !important;
+}
+
+:global([data-theme="light"]) .tierBtnLocked {
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #475569 !important;
+}
+
+:global([data-theme="light"]) .tierBtnCleared {
+  background: #FEF3C7 !important;
+  border-color: #F59E0B !important;
+  color: #92400E !important;
+}

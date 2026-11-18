@@ -1,0 +1,19 @@
+/* ==========================================================================
+   PLAYARENA GLOBAL VIEWPORT LOCK
+   Enforces strict single-screen 100dvh layout across all games
+   Permanently eliminates browser scrollbars and bottom UI cut-offs
+   ========================================================================== */
+
+.arenaViewportLock {
+  height: 100dvh;
+  max-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
